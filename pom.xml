@@ -24,7 +24,7 @@
 	</parent>
 
 	<dependencies>
-        <!-- SPRINGBoOT -->
+        <!-- SPRINGBOOT -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -37,6 +37,12 @@
             <version>1.16.20</version>
             <scope>provided</scope>
         </dependency>
+
+		<!-- NEO4J -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-neo4j</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -47,5 +53,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
