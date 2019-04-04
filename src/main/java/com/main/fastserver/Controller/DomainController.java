@@ -19,9 +19,6 @@ public class DomainController {
     @Autowired
     private DomainService domainService;
 
-    @Autowired
-    private DomainRepository domainRepository;
-
     @GetMapping("/api/domains")
     public List<Domain> findByTitle(@RequestParam(required = false) String title) {
         if(title != null) {
