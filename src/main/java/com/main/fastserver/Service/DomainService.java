@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Service for Domain
+ */
 
 @Service
 public class DomainService {
@@ -18,14 +21,27 @@ public class DomainService {
     @Autowired
     private final DomainRepository domainRepository;
 
+    /**
+     * Constructor
+     * @param domainRepository
+     */
     public DomainService(DomainRepository domainRepository) {
         this.domainRepository = domainRepository;
     }
 
+    /**
+     * Searches the domain by title
+     * @param title of the domain sought
+     * @return Domain with equal title
+     */
     public List<Domain> findByTitle(String title) {
         return domainRepository.getAllByTitle(title);
     }
 
+    /**
+     * Returns all domains in the database
+     * @return domains list present in database
+     */
     public List<Domain> collectAll() {
         return domainRepository.collectAll();
     }

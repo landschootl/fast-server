@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * Controller for subdomain
+ */
 @RestController
 @RequestMapping("/")
 public class SubDomainController {
@@ -16,6 +19,10 @@ public class SubDomainController {
     @Autowired
     private SubDomainService subDomainService;
 
+    /**
+     * End-point for get all subdomain present in the database
+     * @return subdomain list and display response in format JSON
+     */
     @GetMapping("/api/subdomains")
     public List<Sub_domain> collectAll() {
         return subDomainService.collectAll();

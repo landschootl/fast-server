@@ -6,9 +6,11 @@ import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
-import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Entity domain present in the database
+ */
 @NodeEntity
 @Data
 public class Domain {

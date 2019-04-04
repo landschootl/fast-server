@@ -7,10 +7,16 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import java.util.List;
 
+/**
+ * Repository for subdomain
+ */
 @RepositoryRestResource(collectionResourceRel = "subdomains", path = "subdomains")
 public interface SubDomainRepository extends Neo4jRepository<Sub_domain, Long> {
 
+    /**
+     * Define the query for get all subdomain in the database
+     */
     @Query("MATCH (sub_domain:Sub_domain)<-[skill_in:SKILL_IN]-(skill:Skill) RETURN sub_domain, skill_in, skill")
-    public List<Sub_domain> collectAll();
+    List<Sub_domain> collectAll();
 
 }

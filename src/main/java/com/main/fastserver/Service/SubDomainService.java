@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Service for subdomain
+ */
 @Service
 public class SubDomainService {
 
@@ -17,10 +20,18 @@ public class SubDomainService {
     @Autowired
     private final SubDomainRepository subDomainRepository;
 
+    /**
+     * Constructor
+     * @param subDomainRepository
+     */
     public SubDomainService(SubDomainRepository subDomainRepository) {
         this.subDomainRepository = subDomainRepository;
     }
 
+    /**
+     * Returns all domains in the database
+     * @return domains list present in database
+     */
     public List<Sub_domain> collectAll() {
         return subDomainRepository.collectAll();
     }

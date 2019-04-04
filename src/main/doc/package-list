@@ -1,0 +1,5 @@
+com.main.fastserver
+com.main.fastserver.Controller
+com.main.fastserver.Entity
+com.main.fastserver.Repository
+com.main.fastserver.Service

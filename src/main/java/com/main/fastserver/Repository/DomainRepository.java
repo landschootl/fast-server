@@ -8,11 +8,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
+/**
+ * Repository for domain
+ */
 @RepositoryRestResource(collectionResourceRel = "domains", path = "domains")
 public interface DomainRepository extends Neo4jRepository<Domain, Long> {
 
+    /**
+     * define query for search domain with title equal to the parameter
+     * @param title of the domain sought
+     * @return
+     */
     List<Domain> getAllByTitle(@RequestParam(required = false) String title);
 
+    /**
+     * Define the query for get all domain with relation in the database
+     */
     @Query("MATCH (domain:Domain)<-[sub_in:SUB_DOMAIN_IN]-(sub_domain:Sub_domain)<-[skill_in:SKILL_IN]-(skill:Skill) RETURN domain, sub_in, sub_domain, skill_in, skill")
     List<Domain> collectAll();
 

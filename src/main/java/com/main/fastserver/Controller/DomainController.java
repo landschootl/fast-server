@@ -3,8 +3,6 @@ package com.main.fastserver.Controller;
 
 import com.main.fastserver.Service.DomainService;
 import com.main.fastserver.Entity.Domain;
-import com.main.fastserver.Repository.DomainRepository;
-import org.neo4j.ogm.response.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * Controller for domain
+ */
 @RestController
 @RequestMapping("/")
 public class DomainController {
@@ -21,6 +22,12 @@ public class DomainController {
     @Autowired
     private DomainService domainService;
 
+    /**
+     * End-point for get the domain with the title equal to the parameter or get all the domains present
+     * in the database if there is no parameter
+     * @param title of the field sought
+     * @return the domain with the title equal tot the parameter ou list domains present in the database
+     */
     @GetMapping("/api/domains")
     public ResponseEntity findByTitle(@RequestParam(required = false) String title) {
         if(title != null) {
