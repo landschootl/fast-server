@@ -1,4 +1,4 @@
-package com.main.fastserver.Repositories;
+package com.main.fastserver.Repository;
 
 import com.main.fastserver.Entity.Skill;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
