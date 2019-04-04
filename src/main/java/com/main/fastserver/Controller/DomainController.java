@@ -4,7 +4,9 @@ package com.main.fastserver.Controller;
 import com.main.fastserver.Service.DomainService;
 import com.main.fastserver.Entity.Domain;
 import com.main.fastserver.Repository.DomainRepository;
+import org.neo4j.ogm.response.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,11 +22,16 @@ public class DomainController {
     private DomainService domainService;
 
     @GetMapping("/api/domains")
-    public List<Domain> findByTitle(@RequestParam(required = false) String title) {
+    public ResponseEntity findByTitle(@RequestParam(required = false) String title) {
         if(title != null) {
-            return domainService.findByTitle(title);
+            List<Domain> domains = domainService.findByTitle(title);
+            if(domains.isEmpty()) {
+                return ResponseEntity.notFound().build();
+            }else {
+                return ResponseEntity.ok(domains);
+            }
         }else{
-            return domainService.collectAll();
+            return ResponseEntity.ok(domainService.collectAll());
         }
     }
 }
