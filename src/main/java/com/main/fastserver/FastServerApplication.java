@@ -1,9 +1,11 @@
-package com.main.FASTSERVER;
+package com.main.fastserver;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
 
 @SpringBootApplication
+@EnableNeo4jRepositories ("com.main.fastserver.Repositories")
 public class FastServerApplication {
 
 	public static void main(String[] args) {

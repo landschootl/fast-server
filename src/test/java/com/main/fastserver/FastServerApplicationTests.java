@@ -1,4 +1,4 @@
-package com.main.FASTSERVER;
+package com.main.fastserver;
 
 public class FastServerApplicationTests {
 
