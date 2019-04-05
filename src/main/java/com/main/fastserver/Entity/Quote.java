@@ -8,6 +8,9 @@ import org.neo4j.ogm.annotation.Relationship;
 
 import java.util.List;
 
+/**
+ * Entity quote
+ */
 @NodeEntity
 @Data
 public class Quote {

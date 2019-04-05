@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * Service for quote
+ */
 @Service
 public class QuoteService {
 
@@ -19,10 +22,18 @@ public class QuoteService {
     @Autowired
     private final QuoteRepository quoteRepository;
 
+    /**
+     * Constructor
+     * @param quoteRepository
+     */
     public QuoteService(QuoteRepository quoteRepository) {
         this.quoteRepository = quoteRepository;
     }
 
+    /**
+     * Collect all quote present in the database
+     * @return List of quote
+     */
     public List<Quote> collectAll() {
         Iterable<Quote> quoteIterable = quoteRepository.findAll();
         List<Quote> quotes = new ArrayList<>();
@@ -33,6 +44,10 @@ public class QuoteService {
         return quotes;
     }
 
+    /**
+     * Save quote parameter in the database
+     * @param quote to be saved
+     */
     public void persisteQuote(Quote quote) {
         quoteRepository.save(quote);
     }
