@@ -33,8 +33,23 @@ public class QuoteController {
      */
     @RequestMapping(value = "/api/quotes", method = RequestMethod.POST)
     public ResponseEntity persistQuote(@RequestBody Quote quote) {
-        quoteService.persisteQuote(quote);
+        quoteService.persistQuote(quote);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+    @RequestMapping(value = "/api/quotes/{id}", method = RequestMethod.PUT)
+    public ResponseEntity updateQuote(@PathVariable("id") long id, @RequestBody Quote quote) {
+        Quote currentQuote = quoteService.findById(id);
+
+        if(currentQuote == null) {
+            return ResponseEntity.notFound().build();
+        }
+        currentQuote.setName(quote.getName());
+        currentQuote.setMail(quote.getMail());
+        currentQuote.setDescription(quote.getDescription());
+        currentQuote.setTel(quote.getTel());
+        currentQuote.setSkills(quote.getSkills());
+        quoteService.updateQuote(currentQuote);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 }

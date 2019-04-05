@@ -19,7 +19,7 @@ public interface DomainRepository extends Neo4jRepository<Domain, Long> {
      * @param title of the domain sought
      * @return
      */
-    List<Domain> getAllByTitle(@RequestParam(required = false) String title);
+    Domain findByTitle(@RequestParam(required = false) String title);
 
     /**
      * Define the query for get all domain with relation in the database

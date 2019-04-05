@@ -31,11 +31,11 @@ public class DomainController {
     @GetMapping("/api/domains")
     public ResponseEntity findByTitle(@RequestParam(required = false) String title) {
         if(title != null) {
-            List<Domain> domains = domainService.findByTitle(title);
-            if(domains.isEmpty()) {
+            Domain domain = domainService.findByTitle(title);
+            if(domain == null) {
                 return ResponseEntity.notFound().build();
             }else {
-                return ResponseEntity.ok(domains);
+                return ResponseEntity.ok(domain);
             }
         }else{
             return ResponseEntity.ok(domainService.collectAll());

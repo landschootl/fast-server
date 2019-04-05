@@ -48,8 +48,17 @@ public class QuoteService {
      * Save quote parameter in the database
      * @param quote to be saved
      */
-    public void persisteQuote(Quote quote) {
+    public Quote persistQuote(Quote quote) {
+        return quoteRepository.save(quote);
+    }
+
+    public Quote findById(long id) {
+        return quoteRepository.findById(id);
+    }
+
+    public void updateQuote(Quote quote) {
         quoteRepository.save(quote);
     }
+
 
 }

@@ -19,7 +19,7 @@ public class DomainService {
     private final static Logger LOG = LoggerFactory.getLogger(DomainService.class);
 
     @Autowired
-    private final DomainRepository domainRepository;
+    private DomainRepository domainRepository;
 
     /**
      * Constructor
@@ -29,13 +29,14 @@ public class DomainService {
         this.domainRepository = domainRepository;
     }
 
+    public DomainService() {}
     /**
      * Searches the domain by title
      * @param title of the domain sought
      * @return Domain with equal title
      */
-    public List<Domain> findByTitle(String title) {
-        return domainRepository.getAllByTitle(title);
+    public Domain findByTitle(String title) {
+        return domainRepository.findByTitle(title);
     }
 
     /**
