@@ -5,9 +5,9 @@
     <!-- DESCRIPTION -->
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.example</groupId>
-	<artifactId>FAST-SERVER</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>FAST-SERVER</name>
+	<artifactId>fast-server</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<name>fast-server</name>
 	<description>Server for Fast</description>
 	<organization>
 		<name>Davidson</name>
