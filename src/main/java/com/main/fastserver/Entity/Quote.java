@@ -16,12 +16,13 @@ import java.util.List;
  * Entity quote
  */
 @NodeEntity
-@Data
+@Getter
+@Setter
 public class Quote {
 
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
     private String name;
     private String mail;
     private String tel;
