@@ -10,13 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 /**
  * Controller for domain
  */
 @RestController
-@RequestMapping("/")
+@RequestMapping("/api")
 public class DomainController {
 
     @Autowired
@@ -28,17 +26,13 @@ public class DomainController {
      * @param title of the field sought
      * @return the domain with the title equal tot the parameter ou list domains present in the database
      */
-    @GetMapping("/api/domains")
-    public ResponseEntity findByTitle(@RequestParam(required = false) String title) {
+    @GetMapping("/domains")
+    public ResponseEntity findAllOrFindByTitle(@RequestParam(required = false) String title) {
         if(title != null) {
             Domain domain = domainService.findByTitle(title);
-            if(domain == null) {
-                return ResponseEntity.notFound().build();
-            }else {
-                return ResponseEntity.ok(domain);
-            }
+            return ResponseEntity.ok(domain);
         }else{
-            return ResponseEntity.ok(domainService.collectAll());
+            return ResponseEntity.ok(domainService.findAll());
         }
     }
 }

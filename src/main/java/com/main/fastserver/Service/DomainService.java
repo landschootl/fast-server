@@ -21,14 +21,6 @@ public class DomainService {
     @Autowired
     private DomainRepository domainRepository;
 
-    /**
-     * Constructor
-     * @param domainRepository
-     */
-    public DomainService(DomainRepository domainRepository) {
-        this.domainRepository = domainRepository;
-    }
-
     public DomainService() {}
     /**
      * Searches the domain by title
@@ -43,7 +35,7 @@ public class DomainService {
      * Returns all domains in the database
      * @return domains list present in database
      */
-    public List<Domain> collectAll() {
+    public List<Domain> findAll() {
         return domainRepository.collectAll();
     }
 }

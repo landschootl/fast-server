@@ -18,21 +18,13 @@ public class SubDomainService {
     private final static Logger LOG = LoggerFactory.getLogger(DomainService.class);
 
     @Autowired
-    private final SubDomainRepository subDomainRepository;
-
-    /**
-     * Constructor
-     * @param subDomainRepository
-     */
-    public SubDomainService(SubDomainRepository subDomainRepository) {
-        this.subDomainRepository = subDomainRepository;
-    }
+    private SubDomainRepository subDomainRepository;
 
     /**
      * Returns all domains in the database
      * @return domains list present in database
      */
-    public List<Sub_domain> collectAll() {
+    public List<Sub_domain> findAll() {
         return subDomainRepository.collectAll();
     }
 

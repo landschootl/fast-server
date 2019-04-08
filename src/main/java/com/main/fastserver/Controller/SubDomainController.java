@@ -13,7 +13,7 @@ import java.util.List;
  * Controller for subdomain
  */
 @RestController
-@RequestMapping("/")
+@RequestMapping("/api")
 public class SubDomainController {
 
     @Autowired
@@ -23,9 +23,9 @@ public class SubDomainController {
      * End-point for get all subdomain present in the database
      * @return subdomain list and display response in format JSON
      */
-    @GetMapping("/api/subdomains")
+    @GetMapping("/subdomains")
     public List<Sub_domain> collectAll() {
-        return subDomainService.collectAll();
+        return subDomainService.findAll();
     }
 
 }

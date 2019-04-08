@@ -7,9 +7,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Service for quote
@@ -20,21 +22,13 @@ public class QuoteService {
     private final static Logger LOG = LoggerFactory.getLogger(DomainService.class);
 
     @Autowired
-    private final QuoteRepository quoteRepository;
-
-    /**
-     * Constructor
-     * @param quoteRepository
-     */
-    public QuoteService(QuoteRepository quoteRepository) {
-        this.quoteRepository = quoteRepository;
-    }
+    private QuoteRepository quoteRepository;
 
     /**
      * Collect all quote present in the database
      * @return List of quote
      */
-    public List<Quote> collectAll() {
+    public List<Quote> findAll() {
         Iterable<Quote> quoteIterable = quoteRepository.findAll();
         List<Quote> quotes = new ArrayList<>();
         Iterator<Quote> quoteIterator = quoteIterable.iterator();
@@ -48,16 +42,17 @@ public class QuoteService {
      * Save quote parameter in the database
      * @param quote to be saved
      */
-    public Quote persistQuote(Quote quote) {
+    public Quote createQuote(Quote quote) {
+        quote.setId(null);
         return quoteRepository.save(quote);
     }
 
-    public Quote findById(long id) {
+    public Optional<Quote> findById(Long id) {
         return quoteRepository.findById(id);
     }
 
-    public void updateQuote(Quote quote) {
-        quoteRepository.save(quote);
+    public Quote updateQuote(Quote quote) {
+        return quoteRepository.save(quote);
     }
 
 
