@@ -38,7 +38,7 @@ public class SubDomainServiceTest {
 
 
     @Test
-    public void findAllTest() {
+    public void shouldGetAllSubdomains() {
         List<Sub_domain> subDomains = Arrays.asList(SUBDOMAIN_1, SUBDOMAIN_2, SUBDOMAIN_3);
         when(subDomainRepository.collectAll()).thenReturn(subDomains);
         List<Sub_domain> subdomainsFound = subDomainService.findAll();

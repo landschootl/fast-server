@@ -47,10 +47,21 @@ public class QuoteService {
         return quoteRepository.save(quote);
     }
 
+    /**
+     * Search quote by id
+     * @param id
+     * @return optional with quote if the quote is present in the database
+     * or optional null, is the quote is not present
+     */
     public Optional<Quote> findById(Long id) {
         return quoteRepository.findById(id);
     }
 
+    /**
+     * Update the quote
+     * @param quote
+     * @return the quote updated with is id
+     */
     public Quote updateQuote(Quote quote) {
         return quoteRepository.save(quote);
     }

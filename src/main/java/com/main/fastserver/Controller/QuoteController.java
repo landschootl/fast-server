@@ -1,5 +1,6 @@
 package com.main.fastserver.Controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.main.fastserver.Entity.Quote;
 import com.main.fastserver.Service.DomainService;
 import com.main.fastserver.Service.QuoteService;
@@ -40,20 +41,30 @@ public class QuoteController {
      */
     @RequestMapping(value = "/quotes", method = RequestMethod.POST)
     public ResponseEntity persistQuote(@RequestBody Quote quote) {
-        LOG.debug("" + quote.getId());
-        quoteService.createQuote(quote);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        if (quote.getSkills() == null || quote.getSkills().isEmpty()){
+            return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).build();
+        }
+        Quote result =  quoteService.createQuote(quote);
+        return ResponseEntity.ok(result);
     }
 
+    /**
+     * Update the quote with is id
+     * @param id of the quote we want to update
+     * @param quote data to be updated
+     * @return not found if id parameter is not defined or ok if the quote is present
+     */
     @RequestMapping(value = "/quotes/{id}", method = RequestMethod.PUT)
     public ResponseEntity updateQuote(@PathVariable("id") Long id, @RequestBody Quote quote) {
+        if (quote.getName() == null || quote.getId() == null){
+            return ResponseEntity.notFound().build();
+        }
         Optional<Quote> currentQuote = quoteService.findById(id);
-
         if(!currentQuote.isPresent()) {
             return ResponseEntity.notFound().build();
         }
         quote.setId(id);
         quoteService.updateQuote(quote);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.ok(quote);
     }
 }

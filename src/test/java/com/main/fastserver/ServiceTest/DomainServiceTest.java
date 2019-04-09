@@ -39,7 +39,7 @@ public class DomainServiceTest {
     private final Domain DOMAIN_3 = new Domain("QUALITE", "icon", new ArrayList<>());
 
     @Test
-    public void collectAllTest() {
+    public void shouldGetAllDomains() {
         List<Domain> domains = Arrays.asList(DOMAIN_1, DOMAIN_2, DOMAIN_3);
         when(domainRepositoryMock.collectAll()).thenReturn(domains);
         List<Domain> domainsFound = domainService.findAll();
@@ -47,7 +47,7 @@ public class DomainServiceTest {
     }
 
     @Test
-    public void findByTitle() {
+    public void shouldGetDomainsByTitle() {
         when(domainRepositoryMock.findByTitle(DOMAIN_1.getTitle())).thenReturn(DOMAIN_1);
         Domain domainFound = domainService.findByTitle(DOMAIN_1.getTitle());
         assertEquals(DOMAIN_1, domainFound);
