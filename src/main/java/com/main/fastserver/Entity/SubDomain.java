@@ -18,6 +18,7 @@ import java.util.List;
 @Data
 public class SubDomain {
 
+
     @Id
     @GeneratedValue
     private Long id;

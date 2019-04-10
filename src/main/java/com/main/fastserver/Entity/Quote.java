@@ -13,11 +13,10 @@ import java.util.List;
  * Entity quote
  */
 @NodeEntity
-@Builder(toBuilder = true)
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
 public class Quote {
 
     @Id
