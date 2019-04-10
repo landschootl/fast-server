@@ -9,11 +9,10 @@ import org.neo4j.ogm.annotation.NodeEntity;
  * Entity skill present in the database
  */
 @NodeEntity
-@Builder(toBuilder = true)
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
 public class Skill {
 
     @Id

@@ -12,11 +12,10 @@ import java.util.List;
  * Entity domain present in the database
  */
 @NodeEntity
-@Builder(toBuilder = true)
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
 public class Domain {
 
     @Id

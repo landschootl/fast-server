@@ -12,11 +12,10 @@ import java.util.List;
  * Entity sub_domain present in the datagraphe
  */
 @NodeEntity
-@Builder(toBuilder = true)
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
 public class Sub_domain {
 
     @Id
