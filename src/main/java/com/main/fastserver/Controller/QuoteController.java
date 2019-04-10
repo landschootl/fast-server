@@ -80,6 +80,7 @@ public class QuoteController {
         }
         Quote quote = currentQuote.get();
         quote.setSend(true);
+        quote.setId(id);
         quoteService.updateQuote(quote);
         return ResponseEntity.ok(quote);
     }
