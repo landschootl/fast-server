@@ -1,6 +1,5 @@
 package com.main.fastserver.Controller;
 
-
 import com.main.fastserver.Service.DomainService;
 import com.main.fastserver.Entity.Domain;
 import org.springframework.beans.factory.annotation.Autowired;

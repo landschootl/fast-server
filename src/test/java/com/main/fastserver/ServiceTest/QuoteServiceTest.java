@@ -3,7 +3,6 @@ package com.main.fastserver.ServiceTest;
 import com.main.fastserver.Entity.Quote;
 import com.main.fastserver.Repository.QuoteRepository;
 import com.main.fastserver.Service.QuoteService;
-import com.sun.org.apache.xpath.internal.operations.Quo;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,7 +41,7 @@ public class QuoteServiceTest {
 
 
     @Test
-    public void collectAllTest() {
+    public void shouldGetAllQuotes() {
         List<Quote> quotes = Arrays.asList(QUOTE_1, QUOTE_2, QUOTE_3);
         when(quoteRepositoryMock.findAll()).thenReturn(quotes);
         List<Quote> quotesFound = quoteService.findAll();
@@ -50,14 +49,14 @@ public class QuoteServiceTest {
     }
 
     @Test
-    public void findByIdTest() {
+    public void shouldGetQuoteById() {
         when(quoteRepositoryMock.findById(QUOTE_ID)).thenReturn(Optional.of(QUOTE_1));
         Quote quoteFound = quoteService.findById(QUOTE_ID).get();
         assertEquals(QUOTE_1, quoteFound);
     }
 
     @Test
-    public void persistTest() {
+    public void shouldCreateQuote() {
         Quote created = new Quote("test", "test@test.fr", "00000000", "description", new ArrayList<>());
         created.setId(1L);
         when(quoteRepositoryMock.save(Mockito.any())).thenReturn(created);
@@ -66,7 +65,7 @@ public class QuoteServiceTest {
     }
 
     @Test
-    public void updateTest() {
+    public void shouldUpdateQuote() {
         Quote created = new Quote("test", "test@test.fr", "00000000", "description", new ArrayList<>());
         created.setId(1L);
         when(quoteRepositoryMock.save(Mockito.any())).thenReturn(created);

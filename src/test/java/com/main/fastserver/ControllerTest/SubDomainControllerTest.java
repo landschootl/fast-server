@@ -1,7 +1,7 @@
 package com.main.fastserver.ControllerTest;
 
 import com.main.fastserver.Controller.SubDomainController;
-import com.main.fastserver.Entity.Sub_domain;
+import com.main.fastserver.Entity.SubDomain;
 import com.main.fastserver.Service.SubDomainService;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,31 +34,28 @@ public class SubDomainControllerTest {
 
     private MockMvc mvc;
 
-    private List<Sub_domain> subDomains;
-
-    private final Sub_domain SUBDOMAIN_1 = new Sub_domain("Cloud", new ArrayList<>());
-    private final Sub_domain SUBDOMAIN_2 = new Sub_domain("Front", new ArrayList<>());
+    private final SubDomain SUBDOMAIN_1 = new SubDomain("Cloud", new ArrayList<>());
+    private final SubDomain SUBDOMAIN_2 = new SubDomain("Front", new ArrayList<>());
 
     @Before
-    public void setup() {
-        subDomains = Arrays.asList(SUBDOMAIN_1, SUBDOMAIN_2);
+    public void init() {
         mvc = MockMvcBuilders.standaloneSetup(subDomainController).build();
     }
 
     @Test
-    public void findAllTest() throws Exception {
+    public void shouldGetSubdomains() throws Exception {
+        List<SubDomain> subDomains = Arrays.asList(SUBDOMAIN_1, SUBDOMAIN_2);
         when(subDomainService.findAll()).thenReturn(subDomains);
-
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/api/subdomains")
                 .accept(MediaType.APPLICATION_JSON);
-
         MvcResult result = mvc.perform(requestBuilder).andReturn();
-
         String expected = " [{\"id\": null," +
-                "\"title\":\"Cloud\"}," +
+                "\"title\":\"Cloud\"," +
+                "\"skills\":[]}," +
                 "{\"id\":null," +
-                "\"title\":\"Front\"}]";
-        JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), false);
+                "\"title\":\"Front\"," +
+                "\"skills\":[]}]";
+        JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
     }
 
 }

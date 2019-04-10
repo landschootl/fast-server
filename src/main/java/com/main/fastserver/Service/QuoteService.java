@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -47,10 +46,21 @@ public class QuoteService {
         return quoteRepository.save(quote);
     }
 
+    /**
+     * Search quote by id
+     * @param id
+     * @return optional with quote if the quote is present in the database
+     * or optional null, is the quote is not present
+     */
     public Optional<Quote> findById(Long id) {
         return quoteRepository.findById(id);
     }
 
+    /**
+     * Update the quote
+     * @param quote
+     * @return the quote updated with is id
+     */
     public Quote updateQuote(Quote quote) {
         return quoteRepository.save(quote);
     }

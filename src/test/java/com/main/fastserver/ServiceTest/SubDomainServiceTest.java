@@ -1,6 +1,6 @@
 package com.main.fastserver.ServiceTest;
 
-import com.main.fastserver.Entity.Sub_domain;
+import com.main.fastserver.Entity.SubDomain;
 import com.main.fastserver.Repository.SubDomainRepository;
 import com.main.fastserver.Service.SubDomainService;
 import org.junit.Before;
@@ -32,16 +32,15 @@ public class SubDomainServiceTest {
         MockitoAnnotations.initMocks(this);
     }
 
-    private final Sub_domain SUBDOMAIN_1 = new Sub_domain("test", new ArrayList<>());
-    private final Sub_domain SUBDOMAIN_2 = new Sub_domain("test2", new ArrayList<>());
-    private final Sub_domain SUBDOMAIN_3 = new Sub_domain("test3", new ArrayList<>());
-
+    private final SubDomain SUBDOMAIN_1 = new SubDomain("test", new ArrayList<>());
+    private final SubDomain SUBDOMAIN_2 = new SubDomain("test2", new ArrayList<>());
+    private final SubDomain SUBDOMAIN_3 = new SubDomain("test3", new ArrayList<>());
 
     @Test
-    public void findAllTest() {
-        List<Sub_domain> subDomains = Arrays.asList(SUBDOMAIN_1, SUBDOMAIN_2, SUBDOMAIN_3);
+    public void shouldGetAllSubdomains() {
+        List<SubDomain> subDomains = Arrays.asList(SUBDOMAIN_1, SUBDOMAIN_2, SUBDOMAIN_3);
         when(subDomainRepository.collectAll()).thenReturn(subDomains);
-        List<Sub_domain> subdomainsFound = subDomainService.findAll();
+        List<SubDomain> subdomainsFound = subDomainService.findAll();
         assertTrue(subDomains.equals(subdomainsFound));
     }
 }
