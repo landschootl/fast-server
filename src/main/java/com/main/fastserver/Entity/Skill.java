@@ -1,9 +1,10 @@
 package com.main.fastserver.Entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+
+import lombok.NoArgsConstructor;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
@@ -12,8 +13,10 @@ import org.neo4j.ogm.annotation.NodeEntity;
  * Entity skill present in the database
  */
 @NodeEntity
-@Getter
-@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class Skill {
 
     @Id
@@ -21,11 +24,4 @@ public class Skill {
     private Long id;
     private String title;
     private String description;
-
-    public Skill() {}
-
-    public Skill(String title, String description) {
-        this.description = description;
-        this.title = title;
-    }
 }

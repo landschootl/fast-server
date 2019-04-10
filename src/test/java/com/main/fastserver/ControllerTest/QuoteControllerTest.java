@@ -38,10 +38,10 @@ public class QuoteControllerTest {
 
     private MockMvc mvc;
 
-    private final Skill SKILL_1 = new Skill("skill", "description");
+    private final Skill SKILL_1 = Skill.builder().title("skill").description("description").build();
 
-    private final Quote QUOTE_1 = new Quote("test", "test@test.fr", "00000000", "description", Arrays.asList(SKILL_1));
-    private final Quote QUOTE_2 = new Quote("test2", "test@test.fr", "00000000", "description", Arrays.asList(SKILL_1));
+    private final Quote QUOTE_1 = Quote.builder().name("test").mail("test@test.fr").tel("00000000").description("description").skills(Arrays.asList(SKILL_1)).build();
+    private final Quote QUOTE_2 = Quote.builder().name("test2").mail("test@test.fr").tel("00000000").description("description").skills(Arrays.asList(SKILL_1)).build();
 
     @Before
     public void init() {

@@ -12,7 +12,6 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -35,9 +34,9 @@ public class QuoteServiceTest {
     }
 
     private final Long QUOTE_ID = 1L;
-    private final Quote QUOTE_1 = new Quote("test", "test@test.fr", "00000000", "description", new ArrayList<>());
-    private final Quote QUOTE_2 = new Quote("test2", "test@test.fr", "00000000", "description", new ArrayList<>());
-    private final Quote QUOTE_3 = new Quote("test3", "test@test.fr", "00000000", "description", new ArrayList<>());
+    private final Quote QUOTE_1 = Quote.builder().name("test").mail("test@test.fr").tel("00000000").description("description").skills(null).build();
+    private final Quote QUOTE_2 = Quote.builder().name("test2").mail("test@test.fr").tel("00000000").description("description").skills(null).build();
+    private final Quote QUOTE_3 = Quote.builder().name("test3").mail("test@test.fr").tel("00000000").description("description").skills(null).build();
 
 
     @Test
@@ -57,19 +56,17 @@ public class QuoteServiceTest {
 
     @Test
     public void shouldCreateQuote() {
-        Quote created = new Quote("test", "test@test.fr", "00000000", "description", new ArrayList<>());
-        created.setId(1L);
-        when(quoteRepositoryMock.save(Mockito.any())).thenReturn(created);
+        QUOTE_1.setId(1L);
+        when(quoteRepositoryMock.save(Mockito.any())).thenReturn(QUOTE_1);
         Quote quoteCreate = quoteService.createQuote(QUOTE_1);
-        assertEquals(created, quoteCreate);
+        assertEquals(QUOTE_1, quoteCreate);
     }
 
     @Test
     public void shouldUpdateQuote() {
-        Quote created = new Quote("test", "test@test.fr", "00000000", "description", new ArrayList<>());
-        created.setId(1L);
-        when(quoteRepositoryMock.save(Mockito.any())).thenReturn(created);
+        QUOTE_1.setId(1L);
+        when(quoteRepositoryMock.save(Mockito.any())).thenReturn(QUOTE_1);
         Quote quoteUpdate = quoteService.updateQuote(QUOTE_1);
-        assertEquals(created, quoteUpdate);
+        assertEquals(QUOTE_1, quoteUpdate);
     }
 }

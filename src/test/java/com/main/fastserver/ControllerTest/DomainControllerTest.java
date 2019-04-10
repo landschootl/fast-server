@@ -34,8 +34,8 @@ public class DomainControllerTest {
 
     private MockMvc mvc;
 
-    private final Domain DOMAIN_1 = new Domain("ECOSYSTEM", "icon", new ArrayList<>());
-    private final Domain DOMAIN_2 = new Domain("METHOD", "icon", new ArrayList<>());
+    private final Domain DOMAIN_1 = Domain.builder().title("ECOSYSTEM").icon("icon").subdomains(new ArrayList<>()).build();
+    private final Domain DOMAIN_2 = Domain.builder().title("METHOD").icon("icon").subdomains(new ArrayList<>()).build();
 
     @Before
     public void init(){
@@ -68,4 +68,5 @@ public class DomainControllerTest {
                 "\"subdomains\":[]}";
         JSONAssert.assertEquals(expected2, result2.getResponse().getContentAsString(), true);
     }
+
 }
