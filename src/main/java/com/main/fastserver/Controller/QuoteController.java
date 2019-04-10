@@ -55,9 +55,6 @@ public class QuoteController {
      */
     @RequestMapping(value = "/quotes/{quoteid}", method = RequestMethod.PUT)
     public ResponseEntity updateQuote(@PathVariable("quoteid") Long id, @RequestBody Quote quote) {
-        if (quote.getId() == null){
-            return ResponseEntity.notFound().build();
-        }
         if (quote.getSkills() == null || quote.getSkills().isEmpty()){
             return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).build();
         }
