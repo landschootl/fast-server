@@ -68,5 +68,4 @@ public class DomainControllerTest {
                 "\"subdomains\":[]}";
         JSONAssert.assertEquals(expected2, result2.getResponse().getContentAsString(), true);
     }
-
 }

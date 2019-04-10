@@ -28,4 +28,5 @@ public class Domain {
     @Relationship(type = "SUB_DOMAIN_IN", direction = Relationship.INCOMING)
     public List<SubDomain> subdomains;
 
+
 }
