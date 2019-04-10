@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * Controller for domain
  */
@@ -31,7 +33,8 @@ public class DomainController {
             Domain domain = domainService.findByTitle(title);
             return ResponseEntity.ok(domain);
         }else{
-            return ResponseEntity.ok(domainService.findAll());
+            List<Domain> domainList = domainService.findAll();
+            return ResponseEntity.ok(domainList);
         }
     }
 }

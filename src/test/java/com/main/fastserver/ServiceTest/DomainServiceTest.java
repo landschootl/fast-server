@@ -23,7 +23,7 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class DomainServiceTest {
 
-    /*@Mock
+    @Mock
     DomainRepository domainRepositoryMock;
 
     @InjectMocks
@@ -51,6 +51,6 @@ public class DomainServiceTest {
         when(domainRepositoryMock.findByTitle(DOMAIN_1.getTitle())).thenReturn(DOMAIN_1);
         Domain domainFound = domainService.findByTitle(DOMAIN_1.getTitle());
         assertEquals(DOMAIN_1, domainFound);
-    }*/
+    }
 
 }
