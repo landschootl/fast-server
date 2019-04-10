@@ -40,8 +40,8 @@ public class QuoteControllerTest {
 
     private final Skill SKILL_1 = Skill.builder().title("skill").description("description").build();
 
-    private final Quote QUOTE_1 = Quote.builder().name("test").mail("test@test.fr").tel("00000000").description("description").skills(Arrays.asList(SKILL_1)).build();
-    private final Quote QUOTE_2 = Quote.builder().name("test2").mail("test@test.fr").tel("00000000").description("description").skills(Arrays.asList(SKILL_1)).build();
+    private final Quote QUOTE_1 = Quote.builder().name("test").mail("test@test.fr").tel("00000000").description("description").skills(Arrays.asList(SKILL_1)).send(false).build();
+    private final Quote QUOTE_2 = Quote.builder().name("test2").mail("test@test.fr").tel("00000000").description("description").skills(Arrays.asList(SKILL_1)).send(false).build();
 
     @Before
     public void init() {
@@ -62,7 +62,8 @@ public class QuoteControllerTest {
                 "\"description\":\"description\"," +
                 "\"skills\":[{\"id\":null," +
                 "\"title\":\"skill\"," +
-                "\"description\":\"description\"}]}," +
+                "\"description\":\"description\"}]," +
+                "\"send\":false}," +
                 "{\"id\": null," +
                 "\"name\":\"test2\"," +
                 "\"mail\":\"test@test.fr\"," +
@@ -70,7 +71,8 @@ public class QuoteControllerTest {
                 "\"description\":\"description\"," +
                 "\"skills\":[{\"id\":null," +
                 "\"title\":\"skill\"," +
-                "\"description\":\"description\"}]}]";
+                "\"description\":\"description\"}]," +
+                "\"send\":false}]";
         JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
     }
 
@@ -83,7 +85,7 @@ public class QuoteControllerTest {
                 .content("{\"name\":\"test\",\"mail\":\"test@test.fr\",\"tel\":\"00000000\",\"description\":\"description\",\"skills\":[{\"id\":null}]}")
                 .accept(MediaType.APPLICATION_JSON);
         MvcResult result = mvc.perform(requestBuilder).andReturn();
-        String expected = "{\"id\":1,\"name\":\"test\",\"mail\":\"test@test.fr\",\"tel\":\"00000000\",\"description\":\"description\",\"skills\":[{\"id\":null,\"title\":\"skill\",\"description\":\"description\"}]}";
+        String expected = "{\"id\":1,\"name\":\"test\",\"mail\":\"test@test.fr\",\"tel\":\"00000000\",\"description\":\"description\",\"skills\":[{\"id\":null,\"title\":\"skill\",\"description\":\"description\"}],\"send\":false}";
         JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
     }
 
@@ -101,13 +103,13 @@ public class QuoteControllerTest {
         QUOTE_1.setId(1L);
         when(quoteService.updateQuote(any())).thenReturn(QUOTE_1);
         when(quoteService.findById(any())).thenReturn(Optional.of(QUOTE_1));
-        String bodyContent = "{\"id\":1,\"name\":\"test\",\"mail\":\"test@test.fr\",\"tel\":\"0606060606\",\"description\":\"ceci est un test\",\"skills\":[{\"id\":null,\"title\":\"skill\",\"description\":\"description\"}]}";
+        String bodyContent = "{\"id\":1,\"name\":\"test\",\"mail\":\"test@test.fr\",\"tel\":\"0606060606\",\"description\":\"ceci est un test\",\"skills\":[{\"id\":null,\"title\":\"skill\",\"description\":\"description\"}],\"send\":false}";
         RequestBuilder requestBuilder = MockMvcRequestBuilders.put("/api/quotes/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(bodyContent)
                 .accept(MediaType.APPLICATION_JSON);
         MvcResult result = mvc.perform(requestBuilder).andReturn();
-        String expected = "{\"id\":1,\"name\":\"test\",\"mail\":\"test@test.fr\",\"tel\":\"0606060606\",\"description\":\"ceci est un test\",\"skills\":[{\"id\":null,\"title\":\"skill\",\"description\":\"description\"}]}";
+        String expected = "{\"id\":1,\"name\":\"test\",\"mail\":\"test@test.fr\",\"tel\":\"0606060606\",\"description\":\"ceci est un test\",\"skills\":[{\"id\":null,\"title\":\"skill\",\"description\":\"description\"}],\"send\":false}";
         JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
     }
 

@@ -65,5 +65,4 @@ public class QuoteService {
         return quoteRepository.save(quote);
     }
 
-
 }

@@ -69,4 +69,5 @@ public class QuoteServiceTest {
         Quote quoteUpdate = quoteService.updateQuote(QUOTE_1);
         assertEquals(QUOTE_1, quoteUpdate);
     }
+
 }
