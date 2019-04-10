@@ -34,19 +34,17 @@ public class SubDomainControllerTest {
 
     private MockMvc mvc;
 
-    private List<SubDomain> subDomains;
-
     private final SubDomain SUBDOMAIN_1 = new SubDomain("Cloud", new ArrayList<>());
     private final SubDomain SUBDOMAIN_2 = new SubDomain("Front", new ArrayList<>());
 
     @Before
     public void init() {
-        subDomains = Arrays.asList(SUBDOMAIN_1, SUBDOMAIN_2);
         mvc = MockMvcBuilders.standaloneSetup(subDomainController).build();
     }
 
     @Test
     public void shouldGetSubdomains() throws Exception {
+        List<SubDomain> subDomains = Arrays.asList(SUBDOMAIN_1, SUBDOMAIN_2);
         when(subDomainService.findAll()).thenReturn(subDomains);
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/api/subdomains")

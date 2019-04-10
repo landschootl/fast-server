@@ -36,20 +36,17 @@ public class DomainControllerTest {
 
     private MockMvc mvc;
 
-
-    private List<Domain> domains;
-
     private final Domain DOMAIN_1 = new Domain("ECOSYSTEM", "icon", new ArrayList<>());
     private final Domain DOMAIN_2 = new Domain("METHOD", "icon", new ArrayList<>());
 
     @Before
     public void init(){
-        domains = Arrays.asList(DOMAIN_1, DOMAIN_2);
         mvc = MockMvcBuilders.standaloneSetup(domainController).build();
     }
 
     @Test
     public void shouldGetDomainsOrGetDomainsByTitle() throws Exception {
+        List<Domain> domains = Arrays.asList(DOMAIN_1, DOMAIN_2);
         when(domainService.findAll()).thenReturn(domains);
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/api/domains")

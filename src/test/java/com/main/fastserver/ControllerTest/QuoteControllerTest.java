@@ -4,6 +4,7 @@ import com.main.fastserver.Controller.QuoteController;
 import com.main.fastserver.Entity.Quote;
 import com.main.fastserver.Entity.Skill;
 import com.main.fastserver.Service.QuoteService;
+import com.sun.org.apache.xpath.internal.operations.Quo;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,11 +39,8 @@ public class QuoteControllerTest {
 
     private MockMvc mvc;
 
-    private List<Quote> quotes;
-
     private final Quote QUOTE_1 = new Quote("test", "test@test.fr", "00000000", "description", null);
     private final Quote QUOTE_2 = new Quote("test2", "test@test.fr", "00000000", "description", null);
-
 
     @Before
     public void init() {
@@ -50,12 +48,12 @@ public class QuoteControllerTest {
         List<Skill> skills = Arrays.asList(skill);
         QUOTE_1.setSkills(skills);
         QUOTE_2.setSkills(skills);
-        quotes = Arrays.asList(QUOTE_1, QUOTE_2);
         mvc = MockMvcBuilders.standaloneSetup(quoteController).build();
     }
 
     @Test
     public void shouldGetQuotes() throws Exception{
+        List<Quote> quotes = Arrays.asList(QUOTE_1, QUOTE_2);
         when(quoteService.findAll()).thenReturn(quotes);
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/api/quotes")
                 .accept(MediaType.APPLICATION_JSON);
