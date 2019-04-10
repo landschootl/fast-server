@@ -55,7 +55,6 @@ public class SubDomainControllerTest {
                 "{\"id\":null," +
                 "\"title\":\"Front\"," +
                 "\"skills\":[]}]";
-        System.out.println(result.getResponse().getContentAsString());
         JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
     }
 
