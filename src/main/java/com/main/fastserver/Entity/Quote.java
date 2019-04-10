@@ -27,6 +27,7 @@ public class Quote {
     private String mail;
     private String tel;
     private String description;
+    private boolean send;
 
     @Relationship(type = "HAS_SKILL")
     public List<Skill> skills;

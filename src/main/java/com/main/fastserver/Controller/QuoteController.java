@@ -56,4 +56,16 @@ public class QuoteController {
         quoteService.updateQuote(quote);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
+
+    @RequestMapping(value = "/quotes/{id}/validate", method = RequestMethod.PUT)
+    public ResponseEntity validateQuote(@PathVariable("id") Long id) {
+        Optional<Quote> currentQuote = quoteService.findById(id);
+        if(!currentQuote.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+        Quote quote = currentQuote.get();
+        quote.setSend(true);
+        quoteService.updateQuote(quote);
+        return ResponseEntity.ok(quote);
+    }
 }
