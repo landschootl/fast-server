@@ -48,10 +48,6 @@ public class DomainControllerTest {
         mvc = MockMvcBuilders.standaloneSetup(domainController).build();
     }
 
-    /**
-     * Verify if we have the good filter when we search a quote
-     * @throws Exception
-     */
     @Test
     public void shouldGetDomainsOrGetDomainsByTitle() throws Exception {
         when(domainService.findAll()).thenReturn(domains);

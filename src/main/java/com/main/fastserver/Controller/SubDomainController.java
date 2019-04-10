@@ -1,6 +1,6 @@
 package com.main.fastserver.Controller;
 
-import com.main.fastserver.Entity.Sub_domain;
+import com.main.fastserver.Entity.SubDomain;
 import com.main.fastserver.Service.SubDomainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +24,7 @@ public class SubDomainController {
      * @return subdomain list and display response in format JSON
      */
     @GetMapping("/subdomains")
-    public List<Sub_domain> collectAll() {
+    public List<SubDomain> collectAll() {
         return subDomainService.findAll();
     }
 

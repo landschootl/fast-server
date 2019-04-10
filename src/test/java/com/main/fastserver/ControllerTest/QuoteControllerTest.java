@@ -38,26 +38,22 @@ public class QuoteControllerTest {
 
     private MockMvc mvc;
 
-
-    private final Skill SKILL_1 = new Skill("skill", "description");
-    private List<Skill> skills = Arrays.asList(SKILL_1);
-
     private List<Quote> quotes;
 
-    private final Quote QUOTE_1 = new Quote("test", "test@test.fr", "00000000", "description", skills);
-    private final Quote QUOTE_2 = new Quote("test2", "test@test.fr", "00000000", "description", skills);
+    private final Quote QUOTE_1 = new Quote("test", "test@test.fr", "00000000", "description", null);
+    private final Quote QUOTE_2 = new Quote("test2", "test@test.fr", "00000000", "description", null);
 
 
     @Before
     public void init() {
+        Skill skill = new Skill("skill", "description");
+        List<Skill> skills = Arrays.asList(skill);
+        QUOTE_1.setSkills(skills);
+        QUOTE_2.setSkills(skills);
         quotes = Arrays.asList(QUOTE_1, QUOTE_2);
         mvc = MockMvcBuilders.standaloneSetup(quoteController).build();
     }
 
-    /**
-     * Verify if all is present in the database
-     * @throws Exception
-     */
     @Test
     public void shouldGetQuotes() throws Exception{
         when(quoteService.findAll()).thenReturn(quotes);
@@ -85,10 +81,6 @@ public class QuoteControllerTest {
         JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
     }
 
-    /**
-     * Verify if it is save
-     * @throws Exception
-     */
     @Test
     public void shouldCreateQuote() throws Exception {
         QUOTE_1.setId(1L);
@@ -105,10 +97,6 @@ public class QuoteControllerTest {
         JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
     }
 
-    /**
-     * Verify if the quote is correctly updated
-     * @throws Exception
-     */
     @Test
     public void shouldUpdateQuote() throws Exception{
         QUOTE_1.setId(1L);
@@ -129,11 +117,6 @@ public class QuoteControllerTest {
         JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
     }
 
-
-    /**
-     * Verify if updateQuote return not found if the id of the quote is not present in the database
-     * @throws Exception
-     */
     @Test
     public void shouldNotGetQuoteNotFound() throws Exception{
         QUOTE_1.setId(1L);

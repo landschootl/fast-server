@@ -1,6 +1,6 @@
 package com.main.fastserver.Service;
 
-import com.main.fastserver.Entity.Sub_domain;
+import com.main.fastserver.Entity.SubDomain;
 import com.main.fastserver.Repository.SubDomainRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +24,7 @@ public class SubDomainService {
      * Returns all domains in the database
      * @return domains list present in database
      */
-    public List<Sub_domain> findAll() {
+    public List<SubDomain> findAll() {
         return subDomainRepository.collectAll();
     }
 

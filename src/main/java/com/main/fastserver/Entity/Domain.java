@@ -1,7 +1,5 @@
 package com.main.fastserver.Entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.neo4j.ogm.annotation.GeneratedValue;
@@ -26,11 +24,11 @@ public class Domain {
     private String icon;
 
     @Relationship(type = "SUB_DOMAIN_IN", direction = Relationship.INCOMING)
-    public List<Sub_domain> subdomains;
+    public List<SubDomain> subdomains;
 
     public Domain() {}
 
-    public Domain(String title, String icon, List<Sub_domain> subdomains) {
+    public Domain(String title, String icon, List<SubDomain> subdomains) {
         this.title = title;
         this.icon = icon;
         this.subdomains = subdomains;

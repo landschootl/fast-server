@@ -16,7 +16,7 @@ import java.util.List;
  */
 @NodeEntity
 @Getter
-public class Sub_domain {
+public class SubDomain {
 
     @Id
     @GeneratedValue
@@ -26,9 +26,9 @@ public class Sub_domain {
     @Relationship(type = "SKILL_IN", direction = Relationship.INCOMING)
     public List<Skill> skills;
 
-    public Sub_domain() {}
+    public SubDomain() {}
 
-    public Sub_domain(String title, List<Skill> skills) {
+    public SubDomain(String title, List<Skill> skills) {
         this.title = title;
         this.skills = skills;
     }
