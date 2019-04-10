@@ -1,9 +1,6 @@
 package com.main.fastserver.Entity;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
@@ -15,7 +12,11 @@ import java.util.List;
  * Entity sub_domain present in the datagraphe
  */
 @NodeEntity
+@Builder(toBuilder = true)
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
+@Setter
 public class Sub_domain {
 
     @Id
@@ -25,12 +26,4 @@ public class Sub_domain {
 
     @Relationship(type = "SKILL_IN", direction = Relationship.INCOMING)
     public List<Skill> skills;
-
-    public Sub_domain() {}
-
-    public Sub_domain(String title, List<Skill> skills) {
-        this.title = title;
-        this.skills = skills;
-    }
-
 }

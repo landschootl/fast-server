@@ -1,6 +1,6 @@
 package com.main.fastserver.Entity;
 
-import lombok.Data;
+import lombok.*;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
@@ -9,7 +9,11 @@ import org.neo4j.ogm.annotation.NodeEntity;
  * Entity skill present in the database
  */
 @NodeEntity
-@Data
+@Builder(toBuilder = true)
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class Skill {
 
     @Id

@@ -1,9 +1,6 @@
 package com.main.fastserver.Entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
@@ -15,6 +12,9 @@ import java.util.List;
  * Entity domain present in the database
  */
 @NodeEntity
+@Builder(toBuilder = true)
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 public class Domain {
@@ -28,11 +28,4 @@ public class Domain {
     @Relationship(type = "SUB_DOMAIN_IN", direction = Relationship.INCOMING)
     public List<Sub_domain> subdomains;
 
-    public Domain() {}
-
-    public Domain(String title, String icon, List<Sub_domain> subdomains) {
-        this.title = title;
-        this.icon = icon;
-        this.subdomains = subdomains;
-    }
 }
