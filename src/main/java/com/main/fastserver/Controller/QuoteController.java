@@ -53,10 +53,13 @@ public class QuoteController {
      * @param quote data to be updated
      * @return not found if id parameter is not defined or ok if the quote is present
      */
-    @RequestMapping(value = "/quotes/{id}", method = RequestMethod.PUT)
-    public ResponseEntity updateQuote(@PathVariable("id") Long id, @RequestBody Quote quote) {
-        if (quote.getName() == null || quote.getId() == null){
+    @RequestMapping(value = "/quotes/{quoteid}", method = RequestMethod.PUT)
+    public ResponseEntity updateQuote(@PathVariable("quoteid") Long id, @RequestBody Quote quote) {
+        if (quote.getId() == null){
             return ResponseEntity.notFound().build();
+        }
+        if (quote.getSkills() == null || quote.getSkills().isEmpty()){
+            return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).build();
         }
         Optional<Quote> currentQuote = quoteService.findById(id);
         if(!currentQuote.isPresent()) {

@@ -4,7 +4,6 @@ import com.main.fastserver.Entity.Quote;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
-import java.util.List;
 import java.util.Optional;
 
 /**

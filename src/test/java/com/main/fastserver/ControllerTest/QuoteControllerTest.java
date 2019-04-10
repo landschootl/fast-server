@@ -88,28 +88,48 @@ public class QuoteControllerTest {
     }
 
     @Test
+    public void shouldNotCreateQuotePreconditionFailed() throws Exception{
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/api/quotes")
+                .contentType(APPLICATION_JSON)
+                .content("{\"name\":\"test\",\"mail\":\"test@test.fr\",\"tel\":\"00000000\",\"description\":\"description\",\"skills\":null}")
+                .accept(MediaType.APPLICATION_JSON);
+        mvc.perform(requestBuilder).andExpect(status().isPreconditionFailed());
+    }
+
+    @Test
     public void shouldUpdateQuote() throws Exception{
         QUOTE_1.setId(1L);
         when(quoteService.updateQuote(any())).thenReturn(QUOTE_1);
         when(quoteService.findById(any())).thenReturn(Optional.of(QUOTE_1));
-        String bodyContent = "{\"id\":1,\"name\":\"test\",\"mail\":\"test@test.fr\",\"tel\":\"0606060606\",\"description\":\"ceci est un test\",\"skills\":null}";
+        String bodyContent = "{\"id\":1,\"name\":\"test\",\"mail\":\"test@test.fr\",\"tel\":\"0606060606\",\"description\":\"ceci est un test\",\"skills\":[{\"id\":null,\"title\":\"skill\",\"description\":\"description\"}]}";
         RequestBuilder requestBuilder = MockMvcRequestBuilders.put("/api/quotes/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(bodyContent)
                 .accept(MediaType.APPLICATION_JSON);
         MvcResult result = mvc.perform(requestBuilder).andReturn();
-        String expected = "{\"id\":1,\"name\":\"test\",\"mail\":\"test@test.fr\",\"tel\":\"0606060606\",\"description\":\"ceci est un test\",\"skills\":null}";
+        String expected = "{\"id\":1,\"name\":\"test\",\"mail\":\"test@test.fr\",\"tel\":\"0606060606\",\"description\":\"ceci est un test\",\"skills\":[{\"id\":null,\"title\":\"skill\",\"description\":\"description\"}]}";
         JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
     }
 
     @Test
-    public void shouldNotGetQuoteNotFound() throws Exception{
+    public void shouldNotUpdateQuoteNotFound() throws Exception{
         QUOTE_1.setId(1L);
-        String bodyContent = "{\"id\":2,\"name\":\"test\",\"mail\":\"test@test.fr\",\"tel\":\"0606060606\",\"description\":\"ceci est un test\",\"skills\":null}";
+        String bodyContent = "{\"id\":2,\"name\":\"test\",\"mail\":\"test@test.fr\",\"tel\":\"0606060606\",\"description\":\"ceci est un test\",\"skills\":[{\"id\":null,\"title\":\"skill\",\"description\":\"description\"}]}";
         RequestBuilder requestBuilder = MockMvcRequestBuilders.put("/api/quotes/2")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(bodyContent)
                 .accept(MediaType.APPLICATION_JSON);
         mvc.perform(requestBuilder).andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void shouldNotUpdateQuotePreconditionFailed() throws Exception{
+        QUOTE_1.setId(1L);
+        String bodyContent = "{\"id\":1,\"name\":\"test\",\"mail\":\"test@test.fr\",\"tel\":\"0606060606\",\"description\":\"ceci est un test\",\"skills\":null}";
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.put("/api/quotes/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(bodyContent)
+                .accept(MediaType.APPLICATION_JSON);
+        mvc.perform(requestBuilder).andExpect(status().isPreconditionFailed());
     }
 }
