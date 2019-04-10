@@ -1,7 +1,5 @@
 package com.main.fastserver.ControllerTest;
 
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.main.fastserver.Controller.DomainController;
 import com.main.fastserver.Entity.Domain;
 import com.main.fastserver.Service.DomainService;
@@ -48,10 +46,8 @@ public class DomainControllerTest {
     public void shouldGetDomainsOrGetDomainsByTitle() throws Exception {
         List<Domain> domains = Arrays.asList(DOMAIN_1, DOMAIN_2);
         when(domainService.findAll()).thenReturn(domains);
-
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/api/domains")
                 .accept(MediaType.APPLICATION_JSON);
-
         MvcResult result = mvc.perform(requestBuilder).andReturn();
         String expected = " [{\"id\": null," +
                 "\"title\":\"ECOSYSTEM\"," +
@@ -65,9 +61,7 @@ public class DomainControllerTest {
         when(domainService.findByTitle("METHOD")).thenReturn(DOMAIN_2);
         RequestBuilder requestBuilder2 = MockMvcRequestBuilders.get("/api/domains?title=METHOD")
                 .accept(MediaType.APPLICATION_JSON_UTF8);
-
         MvcResult result2 = mvc.perform(requestBuilder2).andReturn();
-
         String expected2 = " {\"id\":null," +
                 "\"title\":\"METHOD\"," +
                 "\"icon\":\"icon\"," +

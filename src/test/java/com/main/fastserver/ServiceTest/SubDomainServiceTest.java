@@ -36,7 +36,6 @@ public class SubDomainServiceTest {
     private final SubDomain SUBDOMAIN_2 = new SubDomain("test2", new ArrayList<>());
     private final SubDomain SUBDOMAIN_3 = new SubDomain("test3", new ArrayList<>());
 
-
     @Test
     public void shouldGetAllSubdomains() {
         List<SubDomain> subDomains = Arrays.asList(SUBDOMAIN_1, SUBDOMAIN_2, SUBDOMAIN_3);

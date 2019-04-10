@@ -46,12 +46,9 @@ public class SubDomainControllerTest {
     public void shouldGetSubdomains() throws Exception {
         List<SubDomain> subDomains = Arrays.asList(SUBDOMAIN_1, SUBDOMAIN_2);
         when(subDomainService.findAll()).thenReturn(subDomains);
-
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/api/subdomains")
                 .accept(MediaType.APPLICATION_JSON);
-
         MvcResult result = mvc.perform(requestBuilder).andReturn();
-
         String expected = " [{\"id\": null," +
                 "\"title\":\"Cloud\"," +
                 "\"skills\":[]}," +

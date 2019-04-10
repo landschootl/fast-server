@@ -4,7 +4,6 @@ import com.main.fastserver.Controller.QuoteController;
 import com.main.fastserver.Entity.Quote;
 import com.main.fastserver.Entity.Skill;
 import com.main.fastserver.Service.QuoteService;
-import com.sun.org.apache.xpath.internal.operations.Quo;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,15 +38,13 @@ public class QuoteControllerTest {
 
     private MockMvc mvc;
 
-    private final Quote QUOTE_1 = new Quote("test", "test@test.fr", "00000000", "description", null);
-    private final Quote QUOTE_2 = new Quote("test2", "test@test.fr", "00000000", "description", null);
+    private final Skill SKILL_1 = new Skill("skill", "description");
+
+    private final Quote QUOTE_1 = new Quote("test", "test@test.fr", "00000000", "description", Arrays.asList(SKILL_1));
+    private final Quote QUOTE_2 = new Quote("test2", "test@test.fr", "00000000", "description", Arrays.asList(SKILL_1));
 
     @Before
     public void init() {
-        Skill skill = new Skill("skill", "description");
-        List<Skill> skills = Arrays.asList(skill);
-        QUOTE_1.setSkills(skills);
-        QUOTE_2.setSkills(skills);
         mvc = MockMvcBuilders.standaloneSetup(quoteController).build();
     }
 
@@ -57,9 +54,7 @@ public class QuoteControllerTest {
         when(quoteService.findAll()).thenReturn(quotes);
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/api/quotes")
                 .accept(MediaType.APPLICATION_JSON);
-
         MvcResult result = mvc.perform(requestBuilder).andReturn();
-
         String expected = " [{\"id\": null," +
                 "\"name\":\"test\"," +
                 "\"mail\":\"test@test.fr\"," +
@@ -87,11 +82,8 @@ public class QuoteControllerTest {
                 .contentType(APPLICATION_JSON)
                 .content("{\"name\":\"test\",\"mail\":\"test@test.fr\",\"tel\":\"00000000\",\"description\":\"description\",\"skills\":[{\"id\":null}]}")
                 .accept(MediaType.APPLICATION_JSON);
-
         MvcResult result = mvc.perform(requestBuilder).andReturn();
-
         String expected = "{\"id\":1,\"name\":\"test\",\"mail\":\"test@test.fr\",\"tel\":\"00000000\",\"description\":\"description\",\"skills\":[{\"id\":null,\"title\":\"skill\",\"description\":\"description\"}]}";
-        System.out.println("REPONSE : " +result.getResponse().getContentAsString() + "\n" + expected);
         JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
     }
 
@@ -100,18 +92,13 @@ public class QuoteControllerTest {
         QUOTE_1.setId(1L);
         when(quoteService.updateQuote(any())).thenReturn(QUOTE_1);
         when(quoteService.findById(any())).thenReturn(Optional.of(QUOTE_1));
-
         String bodyContent = "{\"id\":1,\"name\":\"test\",\"mail\":\"test@test.fr\",\"tel\":\"0606060606\",\"description\":\"ceci est un test\",\"skills\":null}";
-
         RequestBuilder requestBuilder = MockMvcRequestBuilders.put("/api/quotes/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(bodyContent)
                 .accept(MediaType.APPLICATION_JSON);
-
         MvcResult result = mvc.perform(requestBuilder).andReturn();
-
         String expected = "{\"id\":1,\"name\":\"test\",\"mail\":\"test@test.fr\",\"tel\":\"0606060606\",\"description\":\"ceci est un test\",\"skills\":null}";
-
         JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
     }
 
@@ -119,13 +106,10 @@ public class QuoteControllerTest {
     public void shouldNotGetQuoteNotFound() throws Exception{
         QUOTE_1.setId(1L);
         String bodyContent = "{\"id\":2,\"name\":\"test\",\"mail\":\"test@test.fr\",\"tel\":\"0606060606\",\"description\":\"ceci est un test\",\"skills\":null}";
-
         RequestBuilder requestBuilder = MockMvcRequestBuilders.put("/api/quotes/2")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(bodyContent)
                 .accept(MediaType.APPLICATION_JSON);
         mvc.perform(requestBuilder).andExpect(status().isNotFound());
     }
-
-
 }
