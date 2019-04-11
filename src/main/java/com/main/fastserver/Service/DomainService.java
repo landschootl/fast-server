@@ -59,4 +59,8 @@ public class DomainService {
     public void deleteDomain(Domain domain) {
         domainRepository.delete(domain);
     }
+
+    public Domain updateDomain(Domain domain) {
+        return domainRepository.save(domain);
+    }
 }
