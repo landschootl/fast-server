@@ -1,7 +1,13 @@
 HELP.md
 /target/
 !.mvn/wrapper/maven-wrapper.jar
+<<<<<<< HEAD
+<<<<<<< HEAD
 .mvn
+=======
+>>>>>>> feat (Quote): end-point for validate quote
+=======
+>>>>>>> f17d4ef51412d2197f4ebadef044df0bd3429ffa
 
 ### STS ###
 .apt_generated

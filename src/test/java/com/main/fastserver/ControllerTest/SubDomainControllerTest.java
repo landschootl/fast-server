@@ -34,8 +34,8 @@ public class SubDomainControllerTest {
 
     private MockMvc mvc;
 
-    private final SubDomain SUBDOMAIN_1 = new SubDomain("Cloud", new ArrayList<>());
-    private final SubDomain SUBDOMAIN_2 = new SubDomain("Front", new ArrayList<>());
+    private final SubDomain SUBDOMAIN_1 = SubDomain.builder().title("Cloud").skills(new ArrayList<>()).build();
+    private final SubDomain SUBDOMAIN_2 = SubDomain.builder().title("Front").skills(new ArrayList<>()).build();
 
     @Before
     public void init() {
@@ -57,5 +57,6 @@ public class SubDomainControllerTest {
                 "\"skills\":[]}]";
         JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
     }
+
 
 }

@@ -11,7 +11,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -27,14 +26,14 @@ public class SubDomainServiceTest {
     @InjectMocks
     SubDomainService subDomainService;
 
+    private final SubDomain SUBDOMAIN_1 = SubDomain.builder().title("test").skills(null).build();
+    private final SubDomain SUBDOMAIN_2 = SubDomain.builder().title("test2").skills(null).build();
+    private final SubDomain SUBDOMAIN_3 = SubDomain.builder().title("test3").skills(null).build();
+
     @Before
     public void init() {
         MockitoAnnotations.initMocks(this);
     }
-
-    private final SubDomain SUBDOMAIN_1 = new SubDomain("test", new ArrayList<>());
-    private final SubDomain SUBDOMAIN_2 = new SubDomain("test2", new ArrayList<>());
-    private final SubDomain SUBDOMAIN_3 = new SubDomain("test3", new ArrayList<>());
 
     @Test
     public void shouldGetAllSubdomains() {
