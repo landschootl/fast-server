@@ -42,7 +42,7 @@ public class DomainServiceTest {
     public void shouldGetAllDomains() {
         List<Domain> domains = Arrays.asList(DOMAIN_1, DOMAIN_2, DOMAIN_3);
         when(domainRepositoryMock.collectAll()).thenReturn(domains);
-        List<Domain> domainsFound = domainService.findAll();
+        List<Domain> domainsFound = domainService.findAllWithSubdomain();
         assertTrue(domains.equals(domainsFound));
     }
 

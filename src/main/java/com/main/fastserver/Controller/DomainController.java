@@ -33,8 +33,8 @@ public class DomainController {
             Domain domain = domainService.findByTitle(title);
             return ResponseEntity.ok(domain);
         }else{
-            List<Domain> domainList = domainService.findAll();
-            return ResponseEntity.ok(domainList);
+
+            return ResponseEntity.ok(domainService.findAllWithSubdomain());
         }
     }
 }

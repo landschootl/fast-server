@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -35,7 +37,26 @@ public class DomainService {
      * Returns all domains in the database
      * @return domains list present in database
      */
-    public List<Domain> findAll() {
+    public List<Domain> findAllWithSubdomain() {
         return domainRepository.collectAll();
+    }
+
+    public List<Domain> findAll() {
+        Iterable<Domain> iterable = domainRepository.findAll();
+        List<Domain> domains = new ArrayList<>();
+        Iterator<Domain> iterator = iterable.iterator();
+        while(iterator.hasNext()) {
+            domains.add(iterator.next());
+        }
+        return domains;
+    }
+
+    public Domain createDomain(Domain domain) {
+        domain.setId(null);
+        return domainRepository.save(domain);
+    }
+
+    public void deleteDomain(Domain domain) {
+        domainRepository.delete(domain);
     }
 }
