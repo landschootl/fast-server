@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.util.ArrayList;
+
 import java.util.List;
 
 @Component
@@ -34,7 +35,7 @@ public class ScheduledTask {
         File[] domainsFile = repo.listFiles();
         List<Domain> domains = new ArrayList<>();
         for(File file : domainsFile ) {
-            domains.add(new Domain(file.getName(), "icon", null));
+            
         }
         log.info(gson.toJson(domains));
     }
