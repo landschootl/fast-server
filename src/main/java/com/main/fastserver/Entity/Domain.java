@@ -25,7 +25,7 @@ public class Domain {
     private String title;
     private String icon;
 
-    @Relationship(type = "SubDomain_IN", direction = Relationship.INCOMING)
+    @Relationship(type = "SUB_DOMAIN_IN", direction = Relationship.INCOMING)
     public List<SubDomain> subdomains;
 
 

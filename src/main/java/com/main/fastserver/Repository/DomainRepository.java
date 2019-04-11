@@ -24,7 +24,7 @@ public interface DomainRepository extends Neo4jRepository<Domain, Long> {
     /**
      * Define the query for get all domain with relation in the database
      */
-    @Query("MATCH (domain:Domain)<-[sub_in:SubDomain_IN]-(sub_domain:SubDomain)<-[skill_in:SKILL_IN]-(skill:Skill) RETURN domain, sub_in, sub_domain, skill_in, skill")
+    @Query("MATCH (domain:Domain)<-[subdomain_in:SUB_DOMAIN_IN]-(subdomain:SubDomain)<-[skill_in:SKILL_IN]-(skill:Skill) RETURN domain, subdomain_in, subdomain, skill_in, skill")
     List<Domain> collectAll();
 
 }
