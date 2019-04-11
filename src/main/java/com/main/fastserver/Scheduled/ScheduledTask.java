@@ -51,7 +51,7 @@ public class ScheduledTask {
                 subDomainsInFile = dFile.getSubdomains();
                 if(dFile.getTitle().equals(dDatabase.getTitle())) {
                     List<SubDomain> subDomainsInDomainDb = dDatabase.getSubdomains();
-                    updateSubDomain(subDomainsInDomainDb, subDomainsInFile);
+                    updateSubDomain(dDatabase, subDomainsInDomainDb, subDomainsInFile);
                     isPresent = true;
                 }
             }
@@ -72,8 +72,36 @@ public class ScheduledTask {
         }
     }
 
-    public void updateSubDomain(List<SubDomain> subDomainsInDataBaste, List<SubDomain> subDomainsInFile) {
+    public void updateSubDomain(Domain domain, List<SubDomain> subDomainsInDataBase, List<SubDomain> subDomainsInFile) {
         log.info("salut");
+        for (SubDomain subDomain : subDomainsInFile){
+            boolean isPresent = false;
+            for( SubDomain subDomainDataBase : subDomainsInDataBase){
+                if (subDomain.getTitle().equals(subDomainDataBase.getTitle())){
+                    isPresent = true;
+                }
+            }
+            if (!isPresent){
+                List<SubDomain> subDomainList = domain.getSubdomains();
+                subDomainList.add(new SubDomain(subDomain.getTitle(), null));
+                domain.setSubdomains(subDomainList);
+                domainService.updateDomain(domain);
+                log.info(subDomain.getTitle() + " IS CREATED");
+            }
+        }
+
+        for (SubDomain subDomainDatabase : subDomainsInDataBase){
+            boolean isPresent = false;
+            for (SubDomain subDomainFile : subDomainsInFile){
+                if (subDomainDatabase.getTitle().equals(subDomainFile.getTitle())){
+                    isPresent = true;
+                }
+            }
+            if (!isPresent){
+                subDomainService.deleteSubDomain(subDomainDatabase);
+                log.info(subDomainDatabase.getTitle() + " IS DELETED");
+            }
+        }
     }
 
     public List<Domain> getRepositoryDomains(File repository) {
