@@ -28,4 +28,8 @@ public class SubDomainService {
         return subDomainRepository.collectAll();
     }
 
+    public void deleteSubDomain(SubDomain subDomain){
+        subDomainRepository.delete(subDomain);
+    }
+
 }

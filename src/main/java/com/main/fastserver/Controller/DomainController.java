@@ -32,9 +32,8 @@ public class DomainController {
         if(title != null) {
             Domain domain = domainService.findByTitle(title);
             return ResponseEntity.ok(domain);
-        }else{
-            List<Domain> domainList = domainService.findAll();
-            return ResponseEntity.ok(domainList);
+        }else {
+            return ResponseEntity.ok(domainService.findAll());
         }
     }
 }
