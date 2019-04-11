@@ -1,4 +1,3 @@
-
 package com.main.fastserver;
 
 import org.springframework.boot.SpringApplication;
