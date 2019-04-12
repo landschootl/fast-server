@@ -1,12 +1,13 @@
 package com.main.fastserver.Scheduled;
 
-import com.main.fastserver.Entity.Domain;
 import com.main.fastserver.Entity.Skill;
+import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+@Service
 public class ScanService {
 
     public Map<String, Map<String, Map<String, Skill>>> mapDomain(String path) {
