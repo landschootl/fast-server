@@ -3,6 +3,7 @@ package com.main.fastserver.Scheduled;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.main.fastserver.Entity.Domain;
+import com.main.fastserver.Entity.Skill;
 import com.main.fastserver.Entity.SubDomain;
 import com.main.fastserver.Service.DomainService;
 import com.main.fastserver.Service.SubDomainService;
@@ -15,23 +16,22 @@ import org.springframework.stereotype.Component;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class ScheduledTask {
 
-    @Autowired
-    DomainService domainService;
-    @Autowired
-    SubDomainService subDomainService;
-
     private static final Logger log = LoggerFactory.getLogger(ScheduledTask.class);
-    private final GsonBuilder builder = new GsonBuilder();
-    private final Gson gson = builder.create();
+
+    @Autowired
+    ScanService scanService;
+
+    @Autowired
+    ProcessService processService;
 
     @Scheduled(fixedRate = 5000)
     public void update() {
-        ScanService scanService = new ScanService();
-        scanService.mapDomain("src/main/resources/domains");
-        log.info("BONJOUR");
+        Map<String, Map<String, Map<String, Skill>>> domainsMap = scanService.mapDomain("src/main/resources/domains");
+        processService.process(domainsMap);
     }
 }
