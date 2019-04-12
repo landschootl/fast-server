@@ -61,7 +61,14 @@ public class QuoteService {
      * @param quote
      * @return the quote updated with is id
      */
-    public Quote updateQuote(Quote quote) {
+    public Quote updateQuote(Quote quote, Long id) {
+        quote.setId(id);
+        return quoteRepository.save(quote);
+    }
+
+    public Quote validateQuote(Quote quote, Long id){
+        quote.setSend(true);
+        quote.setId(id);
         return quoteRepository.save(quote);
     }
 

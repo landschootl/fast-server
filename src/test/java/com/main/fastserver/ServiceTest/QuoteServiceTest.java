@@ -66,7 +66,7 @@ public class QuoteServiceTest {
     public void shouldUpdateQuote() {
         QUOTE_1.setId(1L);
         when(quoteRepositoryMock.save(Mockito.any())).thenReturn(QUOTE_1);
-        Quote quoteUpdate = quoteService.updateQuote(QUOTE_1);
+        Quote quoteUpdate = quoteService.updateQuote(QUOTE_1, QUOTE_ID);
         assertEquals(QUOTE_1, quoteUpdate);
     }
 
