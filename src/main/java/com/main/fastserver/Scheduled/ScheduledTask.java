@@ -30,12 +30,8 @@ public class ScheduledTask {
 
     @Scheduled(fixedRate = 5000)
     public void update() {
-        File repo = new File("src/main/resources/domains");
-        File[] domainsFile = repo.listFiles();
-        List<Domain> domains = new ArrayList<>();
-        for(File file : domainsFile ) {
-
-        }
-        log.info(gson.toJson(domains));
+        ScanService scanService = new ScanService();
+        scanService.mapDomain("src/main/resources/domains");
+        log.info("BONJOUR");
     }
 }
