@@ -19,4 +19,5 @@ public class FastServerApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(FastServerApplication.class, args);
 	}
+
 }
