@@ -30,6 +30,6 @@ public class ScheduledTask {
 
     @Scheduled(fixedRate = 5000)
     public void update() {
-   
+
     }
 }

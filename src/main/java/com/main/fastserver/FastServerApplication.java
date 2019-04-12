@@ -20,4 +20,3 @@ public class FastServerApplication {
 		SpringApplication.run(FastServerApplication.class, args);
 	}
 }
-
