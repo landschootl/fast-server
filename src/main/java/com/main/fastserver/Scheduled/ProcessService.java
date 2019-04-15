@@ -32,39 +32,7 @@ public class ProcessService {
 
     public void process(Map<String, Map<String, Map<String, Skill>>> domainsMap) {
         List<Domain> domainsInDataBase = domainService.findAll();
-        for(Domain domainDataBase : domainsInDataBase) {
-            if(!domainsMap.containsKey(domainDataBase.getTitle())) {
-                List<SubDomain> subDomains = domainDataBase.getSubdomains();
-                if(subDomains != null) {
-                    for (SubDomain subDomain : subDomains) {
-                        subDomainService.deleteSubDomain(subDomain);
-                        log.info(subDomain.getTitle() + " IS DELETED");
-                    }
-                }
-                domainService.deleteDomain(domainDataBase);
-                log.info(domainDataBase.getTitle() + " IS DELETED");
-            }else {
-                List<SubDomain> subDomainsInDataBase = domainDataBase.getSubdomains();
-                if(subDomainsInDataBase != null) {
-                    for (SubDomain subDomainDataBase : subDomainsInDataBase) {
-                        if (!domainsMap.get(domainDataBase.getTitle()).containsKey(subDomainDataBase.getTitle())) {
-                            subDomainService.deleteSubDomain(subDomainDataBase);
-                            log.info(subDomainDataBase.getTitle() + " IS DELETED");
-                        } else {
-                            List<Skill> skillsInDataBase = subDomainDataBase.getSkills();
-                            if(skillsInDataBase != null) {
-                                for (Skill skillDataBase : skillsInDataBase) {
-                                    if (!domainsMap.get(domainDataBase.getTitle()).get(subDomainDataBase.getTitle()).containsKey(skillDataBase.getTitle())) {
-                                        skillService.delete(subDomainDataBase.getTitle(), skillDataBase.getTitle());
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        domainsInDataBase = domainService.findAll();
+        this.processDelete(domainsMap, domainsInDataBase);
         for(String titleDomain : domainsMap.keySet()) {
             boolean isPresent = false;
             for(Domain domainInDatabase : domainsInDataBase) {
@@ -122,6 +90,41 @@ public class ProcessService {
                     subDomains.add(SubDomain.builder().title(titleSubDomain).skills(skills).build());
                 }
                 domainService.createDomain(Domain.builder().title(titleDomain).icon("icon").subdomains(subDomains).build());
+            }
+        }
+    }
+
+    public void processDelete(Map<String, Map<String, Map<String, Skill>>> domainsMap, List<Domain> domainsInDataBase) {
+        for(Domain domainDataBase : domainsInDataBase) {
+            if(!domainsMap.containsKey(domainDataBase.getTitle())) {
+                List<SubDomain> subDomains = domainDataBase.getSubdomains();
+                if(subDomains != null) {
+                    for (SubDomain subDomain : subDomains) {
+                        subDomainService.deleteSubDomain(subDomain);
+                        log.info(subDomain.getTitle() + " IS DELETED");
+                    }
+                }
+                domainService.deleteDomain(domainDataBase);
+                log.info(domainDataBase.getTitle() + " IS DELETED");
+            }else {
+                List<SubDomain> subDomainsInDataBase = domainDataBase.getSubdomains();
+                if(subDomainsInDataBase != null) {
+                    for (SubDomain subDomainDataBase : subDomainsInDataBase) {
+                        if (!domainsMap.get(domainDataBase.getTitle()).containsKey(subDomainDataBase.getTitle())) {
+                            subDomainService.deleteSubDomain(subDomainDataBase);
+                            log.info(subDomainDataBase.getTitle() + " IS DELETED");
+                        } else {
+                            List<Skill> skillsInDataBase = subDomainDataBase.getSkills();
+                            if(skillsInDataBase != null) {
+                                for (Skill skillDataBase : skillsInDataBase) {
+                                    if (!domainsMap.get(domainDataBase.getTitle()).get(subDomainDataBase.getTitle()).containsKey(skillDataBase.getTitle())) {
+                                        skillService.delete(subDomainDataBase.getTitle(), skillDataBase.getTitle());
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }
