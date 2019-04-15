@@ -45,7 +45,7 @@ public class DomainControllerTest {
     @Test
     public void shouldGetDomainsOrGetDomainsByTitle() throws Exception {
         List<Domain> domains = Arrays.asList(DOMAIN_1, DOMAIN_2);
-        when(domainService.findAllWithSubdomain()).thenReturn(domains);
+        when(domainService.findAll()).thenReturn(domains);
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/api/domains")
                 .accept(MediaType.APPLICATION_JSON);
         MvcResult result = mvc.perform(requestBuilder).andReturn();
