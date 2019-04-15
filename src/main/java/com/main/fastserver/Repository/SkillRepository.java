@@ -12,7 +12,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 @RepositoryRestResource(collectionResourceRel = "skills", path = "skills")
 public interface SkillRepository extends Neo4jRepository<Skill, Long> {
 
-    @Query("MATCH (subdomain:SubDomain {title:{subDomain})<-[r:SKILL_IN]-(skill:Skill {title:{skill}}) DELETE r")
+    @Query("MATCH (subdomain:SubDomain {title:{subDomain}})<-[r:SKILL_IN]-(skill:Skill {title:{skill}}) DELETE r")
     void delete(@Param("subDomain") String SubDomain, @Param("skill") String skill);
 
 }

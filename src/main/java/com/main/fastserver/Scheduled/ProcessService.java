@@ -35,9 +35,11 @@ public class ProcessService {
         for(Domain domainDataBase : domainsInDataBase) {
             if(!domainsMap.containsKey(domainDataBase.getTitle())) {
                 List<SubDomain> subDomains = domainDataBase.getSubdomains();
-                for(SubDomain subDomain : subDomains) {
-                    subDomainService.deleteSubDomain(subDomain);
-                    log.info(subDomain.getTitle() + " IS DELETED");
+                if(subDomains != null) {
+                    for (SubDomain subDomain : subDomains) {
+                        subDomainService.deleteSubDomain(subDomain);
+                        log.info(subDomain.getTitle() + " IS DELETED");
+                    }
                 }
                 domainService.deleteDomain(domainDataBase);
                 log.info(domainDataBase.getTitle() + " IS DELETED");
@@ -50,34 +52,76 @@ public class ProcessService {
                             log.info(subDomainDataBase.getTitle() + " IS DELETED");
                         } else {
                             List<Skill> skillsInDataBase = subDomainDataBase.getSkills();
-                            for (Skill skillDataBase : skillsInDataBase) {
-                                if (!domainsMap.get(domainDataBase.getTitle()).get(subDomainDataBase.getTitle()).containsKey(skillDataBase.getTitle())) {
-                                    skillService.delete(subDomainDataBase.getTitle(), skillDataBase.getTitle());
+                            if(skillsInDataBase != null) {
+                                for (Skill skillDataBase : skillsInDataBase) {
+                                    if (!domainsMap.get(domainDataBase.getTitle()).get(subDomainDataBase.getTitle()).containsKey(skillDataBase.getTitle())) {
+                                        skillService.delete(subDomainDataBase.getTitle(), skillDataBase.getTitle());
+                                    }
                                 }
                             }
                         }
                     }
                 }
-                domainsMap.remove(domainDataBase.getTitle());
             }
         }
-
-        
-
+        domainsInDataBase = domainService.findAll();
         for(String titleDomain : domainsMap.keySet()) {
-            Domain domain = Domain.builder().title(titleDomain).icon("icon").build();
-            domainService.createDomain(domain);
-            List<SubDomain> subDomains = new ArrayList<>();
-            for(String titleSubdomain : domainsMap.get(titleDomain).keySet()) {
-                SubDomain subDomain = SubDomain.builder().title(titleDomain).build();
-                List<Skill> skills = new ArrayList<>();
-                for(String titleSkill : domainsMap.get(titleDomain).get(titleSubdomain).keySet()) {
-                    skills.add(Skill.builder().title(titleSkill).description("...").build());
+            boolean isPresent = false;
+            for(Domain domainInDatabase : domainsInDataBase) {
+                if(titleDomain.equals(domainInDatabase.getTitle())) {
+                    isPresent = true;
+                    List<SubDomain> subDomains = domainInDatabase.getSubdomains();
+                    for(String titleSubDomain : domainsMap.get(titleDomain).keySet()) {
+                        boolean isPresentSubDomain = false;
+                        if(subDomains != null) {
+                            for (SubDomain subDomain : subDomains) {
+                                if (titleSubDomain.equals(subDomain.getTitle())) {
+                                    isPresentSubDomain = true;
+                                    List<Skill> skills = subDomain.getSkills();
+                                    for(String titleSkill : domainsMap.get(titleDomain).get(titleSubDomain).keySet()) {
+                                        boolean isPresentSkill = false;
+                                        if(skills != null) {
+                                            for(Skill skill : skills) {
+                                                if(titleSkill.equals(skill.getTitle())) {
+                                                    isPresentSkill = true;
+                                                }
+                                            }
+                                        }
+                                        if(!isPresentSkill) {
+                                            if(skills == null) {
+                                                skills = new ArrayList<>();
+                                            }
+                                            skills.add(Skill.builder().title(titleSkill).description("...").build());
+                                            subDomain.setSkills(skills);
+                                            domainService.updateDomain(domainInDatabase);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        if(!isPresentSubDomain) {
+                            if (subDomains == null) {
+                                subDomains = new ArrayList<>();
+                                subDomains.add(SubDomain.builder().title(titleSubDomain).skills(null).build());
+                            } else {
+                                subDomains.add(SubDomain.builder().title(titleSubDomain).skills(null).build());
+                            }
+                                domainInDatabase.setSubdomains(subDomains);
+                            domainService.updateDomain(domainInDatabase);
+                        }
+                    }
                 }
-                subDomain.setSkills(skills);
-                subDomains.add(subDomain);
-                domain.setSubdomains(subDomains);
-                domainService.updateDomain(domain);
+            }
+            if(!isPresent) {
+                List<SubDomain> subDomains = new ArrayList<>();
+                for(String titleSubDomain : domainsMap.get(titleDomain).keySet()) {
+                    List<Skill> skills = new ArrayList<>();
+                    for(String titleSkill : domainsMap.get(titleDomain).get(titleSubDomain).keySet()) {
+                        skills.add(domainsMap.get(titleDomain).get(titleSubDomain).get(titleSkill));
+                    }
+                    subDomains.add(SubDomain.builder().title(titleSubDomain).skills(skills).build());
+                }
+                domainService.createDomain(Domain.builder().title(titleDomain).icon("icon").subdomains(subDomains).build());
             }
         }
     }

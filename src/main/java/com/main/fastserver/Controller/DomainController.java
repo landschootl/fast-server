@@ -34,7 +34,6 @@ public class DomainController {
             return ResponseEntity.ok(domain);
         }else {
             return ResponseEntity.ok(domainService.findAll());
-
         }
     }
 }

@@ -22,7 +22,7 @@ public class ScanService {
                 Map<String, Skill> mapSkill = new HashMap<>();
                 File[] skillsFile = subDomainFile.listFiles();
                 for(File skillFile : skillsFile) {
-                    mapSkill.put(skillFile.getName(), null);
+                    mapSkill.put(skillFile.getName(), Skill.builder().title(skillFile.getName()).description("description").build());
                 }
                 mapSubDomains.put(subDomainFile.getName(), mapSkill);
             }

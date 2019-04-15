@@ -37,18 +37,8 @@ public class DomainService {
      * Returns all domains in the database
      * @return domains list present in database
      */
-    public List<Domain> findAllWithSubdomain() {
-        return domainRepository.collectAll();
-    }
-
     public List<Domain> findAll() {
-        Iterable<Domain> iterable = domainRepository.findAll();
-        List<Domain> domains = new ArrayList<>();
-        Iterator<Domain> iterator = iterable.iterator();
-        while(iterator.hasNext()) {
-            domains.add(iterator.next());
-        }
-        return domains;
+        return domainRepository.collectAll();
     }
 
     public Domain createDomain(Domain domain) {
