@@ -62,7 +62,8 @@ public class QuoteController {
         if(!currentQuote.isPresent()) {
             return ResponseEntity.notFound().build();
         }
-        quoteService.updateQuote(quote, id);
+        quote.setId(id);
+        quoteService.updateQuote(quote);
         return ResponseEntity.ok(quote);
     }
 
@@ -77,7 +78,9 @@ public class QuoteController {
         if(!currentQuote.isPresent()) {
             return ResponseEntity.notFound().build();
         }
-        Quote quote = quoteService.validateQuote(currentQuote.get(), id);
+        Quote tmpQuote = currentQuote.get();
+        tmpQuote.setId(id);
+        Quote quote = quoteService.validateQuote(tmpQuote);
         return ResponseEntity.ok(quote);
     }
 }
