@@ -10,7 +10,7 @@ public class SkillService {
     @Autowired
     SkillRepository skillRepository;
 
-    public void delete(String subDomain, String skill) {
-        skillRepository.delete(subDomain, skill);
+    public void delete(Long skill) {
+        skillRepository.delete(skill);
     }
 }
