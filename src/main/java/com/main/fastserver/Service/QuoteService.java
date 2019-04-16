@@ -65,4 +65,14 @@ public class QuoteService {
         return quoteRepository.save(quote);
     }
 
+    /**
+     * Change the attribut send at True
+     * @param quote
+     * @return the quote validate
+     */
+    public Quote validateQuote(Quote quote){
+        quote.setSend(true);
+        return quoteRepository.save(quote);
+    }
+
 }

@@ -135,7 +135,7 @@ public class QuoteControllerTest {
     public void shouldValidateQuote() throws Exception{
         when(quoteService.findById(any())).thenReturn(Optional.of(QUOTE_1));
         QUOTE_1.setSend(true);
-        when(quoteService.updateQuote(any())).thenReturn(QUOTE_1);
+        when(quoteService.validateQuote(any())).thenReturn(QUOTE_1);
         RequestBuilder requestBuilder = MockMvcRequestBuilders.put("/api/quotes/1/validate")
                 .accept(APPLICATION_JSON);
         String expected = "{\"id\":1,\"name\":\"test\",\"mail\":\"test@test.fr\",\"tel\":\"00000000\",\"description\":\"description\",\"skills\":[{\"id\":null,\"title\":\"skill\",\"description\":\"description\"}],\"send\":true}";
