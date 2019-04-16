@@ -33,65 +33,7 @@ public class ProcessService {
     public void process(Map<String, Map<String, Map<String, Skill>>> domainsMap) {
         List<Domain> domainsInDataBase = domainService.findAll();
         this.processDelete(domainsMap, domainsInDataBase);
-        for(String titleDomain : domainsMap.keySet()) {
-            boolean isPresent = false;
-            for(Domain domainInDatabase : domainsInDataBase) {
-                if(titleDomain.equals(domainInDatabase.getTitle())) {
-                    isPresent = true;
-                    List<SubDomain> subDomains = domainInDatabase.getSubdomains();
-                    for(String titleSubDomain : domainsMap.get(titleDomain).keySet()) {
-                        boolean isPresentSubDomain = false;
-                        if(subDomains != null) {
-                            for (SubDomain subDomain : subDomains) {
-                                if (titleSubDomain.equals(subDomain.getTitle())) {
-                                    isPresentSubDomain = true;
-                                    List<Skill> skills = subDomain.getSkills();
-                                    for(String titleSkill : domainsMap.get(titleDomain).get(titleSubDomain).keySet()) {
-                                        boolean isPresentSkill = false;
-                                        if(skills != null) {
-                                            for(Skill skill : skills) {
-                                                if(titleSkill.equals(skill.getTitle())) {
-                                                    isPresentSkill = true;
-                                                }
-                                            }
-                                        }
-                                        if(!isPresentSkill) {
-                                            if(skills == null) {
-                                                skills = new ArrayList<>();
-                                            }
-                                            skills.add(Skill.builder().title(titleSkill).description("...").build());
-                                            subDomain.setSkills(skills);
-                                            domainService.updateDomain(domainInDatabase);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        if(!isPresentSubDomain) {
-                            if (subDomains == null) {
-                                subDomains = new ArrayList<>();
-                                subDomains.add(SubDomain.builder().title(titleSubDomain).skills(null).build());
-                            } else {
-                                subDomains.add(SubDomain.builder().title(titleSubDomain).skills(null).build());
-                            }
-                            domainInDatabase.setSubdomains(subDomains);
-                            domainService.updateDomain(domainInDatabase);
-                        }
-                    }
-                }
-            }
-            if(!isPresent) {
-                List<SubDomain> subDomains = new ArrayList<>();
-                for(String titleSubDomain : domainsMap.get(titleDomain).keySet()) {
-                    List<Skill> skills = new ArrayList<>();
-                    for(String titleSkill : domainsMap.get(titleDomain).get(titleSubDomain).keySet()) {
-                        skills.add(domainsMap.get(titleDomain).get(titleSubDomain).get(titleSkill));
-                    }
-                    subDomains.add(SubDomain.builder().title(titleSubDomain).skills(skills).build());
-                }
-                domainService.createDomain(Domain.builder().title(titleDomain).icon("icon").subdomains(subDomains).build());
-            }
-        }
+        this.processCreate(domainsMap, domainsInDataBase);
     }
 
     public void processDelete(Map<String, Map<String, Map<String, Skill>>> domainsMap, List<Domain> domainsInDataBase) {
@@ -109,51 +51,39 @@ public class ProcessService {
         }
     }
 
-    /*public void processCreate(Map<String, Map<String, Map<String, Skill>>> domainsMap, List<Domain> domainsInDataBase) {
+    public void processCreate(Map<String, Map<String, Map<String, Skill>>> domainsMap, List<Domain> domainsInDataBase) {
         for(String titleDomain : domainsMap.keySet()) {
             boolean isPresent = false;
             for(Domain domainInDatabase : domainsInDataBase) {
                 if(titleDomain.equals(domainInDatabase.getTitle())) {
                     isPresent = true;
-                    Domain domainUpdate = this.updateSubDomain(domainsMap.get(titleDomain), domainInDatabase);
-                    domainService.updateDomain(domainUpdate);
+                    this.updateSubDomains(domainsMap.get(titleDomain), domainInDatabase);
                 }
             }
             if(!isPresent) {
-                this.createDomainWithSubdomainsAndSkill(domainsMap.get(titleDomain), titleDomain, "icon");
+                List<SubDomain> subDomains = new ArrayList<>();
+                for(String titleSubDomain : domainsMap.get(titleDomain).keySet()) {
+                    List<Skill> skills = new ArrayList<>();
+                    for(String titleSkill : domainsMap.get(titleDomain).get(titleSubDomain).keySet()) {
+                        skills.add(domainsMap.get(titleDomain).get(titleSubDomain).get(titleSkill));
+                    }
+                    subDomains.add(SubDomain.builder().title(titleSubDomain).skills(skills).build());
+                }
+                domainService.createDomain(Domain.builder().title(titleDomain).icon("icon").subdomains(subDomains).build());
             }
         }
     }
 
-    public Domain updateSubDomain(Map<String, Map<String, Skill>> subDomainMap, Domain domainInDatabase) {
+    public void updateSubDomains(Map<String, Map<String, Skill>> subDomainsMap, Domain domainInDatabase) {
         List<SubDomain> subDomains = domainInDatabase.getSubdomains();
-        for(String titleSubDomain : subDomainMap.keySet()) {
+        for(String titleSubDomain : subDomainsMap.keySet()) {
             boolean isPresentSubDomain = false;
             if(subDomains != null) {
                 for (SubDomain subDomain : subDomains) {
-                    List<Skill> skills = new ArrayList<>();
                     if (titleSubDomain.equals(subDomain.getTitle())) {
-                        skills = subDomain.getSkills();
                         isPresentSubDomain = true;
-                        for(String titleSkill : subDomainMap.get(titleSubDomain).keySet()) {
-                            boolean isPresentSkill = false;
-                            if(skills != null) {
-                                for(Skill skill : skills) {
-                                    if(titleSkill.equals(skill.getTitle())) {
-                                        isPresentSkill = true;
-                                    }
-                                }
-                            }
-                            if(!isPresentSkill) {
-                                if(skills == null) {
-                                    skills = new ArrayList<>();
-                                }
-                                skills.add(Skill.builder().title(titleSkill).description("...").build());
-                                subDomain.setSkills(skills);
-                            }
-                        }
+                        this.updateSkills(subDomainsMap.get(titleSubDomain), subDomain, domainInDatabase);
                     }
-
                 }
             }
             if(!isPresentSubDomain) {
@@ -164,10 +94,32 @@ public class ProcessService {
                     subDomains.add(SubDomain.builder().title(titleSubDomain).skills(null).build());
                 }
                 domainInDatabase.setSubdomains(subDomains);
+                domainService.updateDomain(domainInDatabase);
             }
         }
-        return domainInDatabase;
-    }*/
+    }
+
+    public void updateSkills(Map<String, Skill> skillsMap, SubDomain subDomainInDatabase, Domain domainInDatabase) {
+        List<Skill> skills = subDomainInDatabase.getSkills();
+        for(String titleSkill : skillsMap.keySet()) {
+            boolean isPresentSkill = false;
+            if(skills != null) {
+                for(Skill skill : skills) {
+                    if(titleSkill.equals(skill.getTitle())) {
+                        isPresentSkill = true;
+                    }
+                }
+            }
+            if(!isPresentSkill) {
+                if(skills == null) {
+                    skills = new ArrayList<>();
+                }
+                skills.add(Skill.builder().title(titleSkill).description("...").build());
+                subDomainInDatabase.setSkills(skills);
+                domainService.updateDomain(domainInDatabase);
+            }
+        }
+    }
 
     public void deleteDomainWithSubDomains(Domain domainDataBase) {
         List<SubDomain> subDomains = domainDataBase.getSubdomains();
@@ -191,21 +143,10 @@ public class ProcessService {
                 for (Skill skillDataBase : skillsInDataBase) {
                     if (!subDomainMap.get(subDomainDataBase.getTitle()).containsKey(skillDataBase.getTitle())) {
                         skillService.delete(subDomainDataBase.getTitle(), skillDataBase.getTitle());
+                        log.info(skillDataBase.getTitle() + " IS DELETED");
                     }
                 }
             }
         }
     }
-
-    /*public void createDomainWithSubdomainsAndSkill(Map<String, Map<String, Skill>> subDomainMap, String title, String icon) {
-        List<SubDomain> subDomains = new ArrayList<>();
-        for(String titleSubDomain : subDomainMap.keySet()) {
-            List<Skill> skills = new ArrayList<>();
-            for(String titleSkill : subDomainMap.get(titleSubDomain).keySet()) {
-                skills.add(subDomainMap.get(titleSubDomain).get(titleSkill));
-            }
-            subDomains.add(SubDomain.builder().title(titleSubDomain).skills(skills).build());
-        }
-        domainService.createDomain(Domain.builder().title(title).icon(icon).subdomains(subDomains).build());
-    }*/
 }
