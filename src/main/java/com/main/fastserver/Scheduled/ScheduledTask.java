@@ -9,6 +9,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
+/**
+ * scheduled task that updates the database according to the files present in /resources/main
+ */
 @Component
 public class ScheduledTask {
 
@@ -20,9 +23,12 @@ public class ScheduledTask {
     @Autowired
     ProcessService processService;
 
+    /**
+     * process called every x time
+     */
     @Scheduled(fixedRate = 5000)
     public void update() {
         Map<String, Map<String, Map<String, Skill>>> domainsMap = scanService.mapDomain("src/main/resources/domains");
-        processService.process(domainsMap);
+        processService.processMain(domainsMap);
     }
 }

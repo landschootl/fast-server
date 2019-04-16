@@ -9,13 +9,15 @@ import com.main.fastserver.Service.SubDomainService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * service that creates or deletes nodes from the database based on what is in the map returned by ScanService
+ */
 @Service
 public class ProcessService {
 
@@ -30,12 +32,21 @@ public class ProcessService {
     @Autowired
     private SkillService skillService;
 
-    public void process(Map<String, Map<String, Map<String, Skill>>> domainsMap) {
+    /**
+     * main process that will be called every x time by ScheduledTask
+     * @param domainsMap
+     */
+    public void processMain(Map<String, Map<String, Map<String, Skill>>> domainsMap) {
         List<Domain> domainsInDataBase = domainService.findAll();
         this.processDelete(domainsMap, domainsInDataBase);
         this.processCreate(domainsMap, domainsInDataBase);
     }
 
+    /**
+     * process that manages the deletion of nodes in the database based on what is in /resources/domains
+     * @param domainsMap
+     * @param domainsInDataBase
+     */
     public void processDelete(Map<String, Map<String, Map<String, Skill>>> domainsMap, List<Domain> domainsInDataBase) {
         for(Domain domainDataBase : domainsInDataBase) {
             if(!domainsMap.containsKey(domainDataBase.getTitle())) {
@@ -51,6 +62,11 @@ public class ProcessService {
         }
     }
 
+    /**
+     * process that manages the creation of nodes in the database based on what is in /resources/domains
+     * @param domainsMap
+     * @param domainsInDataBase
+     */
     public void processCreate(Map<String, Map<String, Map<String, Skill>>> domainsMap, List<Domain> domainsInDataBase) {
         for(String titleDomain : domainsMap.keySet()) {
             boolean isPresentDomain = false;
@@ -74,6 +90,11 @@ public class ProcessService {
         }
     }
 
+    /**
+     * updates subdomains if the domain is already present in the database based on what is in /resources/domains
+     * @param subDomainsMap
+     * @param domainInDatabase
+     */
     public void updateSubDomains(Map<String, Map<String, Skill>> subDomainsMap, Domain domainInDatabase) {
         List<SubDomain> subDomains = domainInDatabase.getSubdomains();
         for(String titleSubDomain : subDomainsMap.keySet()) {
@@ -99,6 +120,12 @@ public class ProcessService {
         }
     }
 
+    /**
+     * updates skills if the subdomain is already in the database based on what is in /resources/domains
+     * @param skillsMap
+     * @param subDomainInDatabase
+     * @param domainInDatabase
+     */
     public void updateSkills(Map<String, Skill> skillsMap, SubDomain subDomainInDatabase, Domain domainInDatabase) {
         List<Skill> skills = subDomainInDatabase.getSkills();
         for(String titleSkill : skillsMap.keySet()) {
@@ -121,6 +148,10 @@ public class ProcessService {
         }
     }
 
+    /**
+     * deletes the domain and its subdomains if the domain is present in the database but not present in /resources/domains
+     * @param domainDataBase
+     */
     public void deleteDomainWithSubDomains(Domain domainDataBase) {
         List<SubDomain> subDomains = domainDataBase.getSubdomains();
         if(subDomains != null) {
@@ -133,6 +164,12 @@ public class ProcessService {
         log.info(domainDataBase.getTitle() + " IS DELETED");
     }
 
+    /**
+     * deletes the subdomain and its skills if the domain is ok and its subdomains are
+     * present in the database but not present in /resources/domains
+     * @param subDomainMap
+     * @param subDomainDataBase
+     */
     public void deleteSubDomainsWithSkills(Map<String, Map<String, Skill>> subDomainMap, SubDomain subDomainDataBase) {
         if (!subDomainMap.containsKey(subDomainDataBase.getTitle())) {
             subDomainService.deleteSubDomain(subDomainDataBase);
