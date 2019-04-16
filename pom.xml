@@ -42,7 +42,6 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-
         <!-- LOMBOK -->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -50,7 +49,6 @@
             <version>1.18.6</version>
             <scope>provided</scope>
         </dependency>
-
 		<!-- NEO4J -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -73,7 +71,6 @@
 			<artifactId>neo4j-ogm-bolt-driver</artifactId>
 			<version>${neo4j-ogm.version}</version>
 		</dependency>
-
 		<!-- MOCKITO -->
 		<dependency>
 			<groupId>org.mockito</groupId>

@@ -78,9 +78,9 @@ public class QuoteController {
         if(!currentQuote.isPresent()) {
             return ResponseEntity.notFound().build();
         }
-        Quote tmpQuote = currentQuote.get();
-        tmpQuote.setId(id);
-        Quote quote = quoteService.validateQuote(tmpQuote);
+        Quote optionalQuote = currentQuote.get();
+        optionalQuote.setId(id);
+        Quote quote = quoteService.validateQuote(optionalQuote);
         return ResponseEntity.ok(quote);
     }
 }
