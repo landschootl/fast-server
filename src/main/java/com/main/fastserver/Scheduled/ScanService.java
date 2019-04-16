@@ -14,9 +14,9 @@ import java.util.Map;
 @Service
 public class ScanService {
 
-    public Map<String, Map<String, Map<String, Skill>>> mapDomain(String path) {
+    public Map<String, Map<String, Map<String, Skill>>> mapDomain(String path) throws Exception {
         File fileDomain = new File(path);
-        if(!fileDomain.isDirectory()) {return null;}
+        if(!fileDomain.isDirectory()) {throw new Exception("path is not directory");}
         Map<String, Map<String, Map<String, Skill>>> mapDomains = new HashMap<>();
         File[] domainsFile = fileDomain.listFiles();
         for(File domainFile : domainsFile) {
