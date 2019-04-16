@@ -27,7 +27,7 @@ public class ScheduledTask {
      * process called every x time
      */
     @Scheduled(fixedRate = 5000)
-    public void update() {
+    public void update() throws Exception {
         Map<String, Map<String, Map<String, Skill>>> domainsMap = scanService.mapDomain("src/main/resources/domains");
         processService.processMain(domainsMap);
     }
