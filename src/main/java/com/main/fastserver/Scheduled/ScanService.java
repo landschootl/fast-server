@@ -7,6 +7,10 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * service that will be called every x time by ScheduledTask
+ * service that scans the files in /resources/domains and creates a map with the corresponding domains, sub-domains and skills
+ */
 @Service
 public class ScanService {
 
