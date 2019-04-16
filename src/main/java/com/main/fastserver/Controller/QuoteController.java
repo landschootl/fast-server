@@ -74,13 +74,13 @@ public class QuoteController {
      */
     @RequestMapping(value = "/quotes/{quoteid}/validate", method = RequestMethod.PUT)
     public ResponseEntity validateQuote(@PathVariable("quoteid") Long id) {
-        Optional<Quote> currentQuote = quoteService.findById(id);
-        if(!currentQuote.isPresent()) {
+        Optional<Quote> optionalQuote = quoteService.findById(id);
+        if(!optionalQuote.isPresent()) {
             return ResponseEntity.notFound().build();
         }
-        Quote optionalQuote = currentQuote.get();
-        optionalQuote.setId(id);
-        Quote quote = quoteService.validateQuote(optionalQuote);
+        Quote quote = optionalQuote.get();
+        quote.setId(id);
+        quote = quoteService.validateQuote(quote);
         return ResponseEntity.ok(quote);
     }
 }
