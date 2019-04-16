@@ -53,14 +53,14 @@ public class ProcessService {
 
     public void processCreate(Map<String, Map<String, Map<String, Skill>>> domainsMap, List<Domain> domainsInDataBase) {
         for(String titleDomain : domainsMap.keySet()) {
-            boolean isPresent = false;
+            boolean isPresentDomain = false;
             for(Domain domainInDatabase : domainsInDataBase) {
                 if(titleDomain.equals(domainInDatabase.getTitle())) {
-                    isPresent = true;
+                    isPresentDomain = true;
                     this.updateSubDomains(domainsMap.get(titleDomain), domainInDatabase);
                 }
             }
-            if(!isPresent) {
+            if(!isPresentDomain) {
                 List<SubDomain> subDomains = new ArrayList<>();
                 for(String titleSubDomain : domainsMap.get(titleDomain).keySet()) {
                     List<Skill> skills = new ArrayList<>();
@@ -142,7 +142,7 @@ public class ProcessService {
             if(skillsInDataBase != null) {
                 for (Skill skillDataBase : skillsInDataBase) {
                     if (!subDomainMap.get(subDomainDataBase.getTitle()).containsKey(skillDataBase.getTitle())) {
-                        skillService.delete(subDomainDataBase.getTitle(), skillDataBase.getTitle());
+                        skillService.delete(skillDataBase.getId());
                         log.info(skillDataBase.getTitle() + " IS DELETED");
                     }
                 }
