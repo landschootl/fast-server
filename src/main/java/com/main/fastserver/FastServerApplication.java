@@ -10,7 +10,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * Run the server in port 8080
  */
 @SpringBootApplication
-@EnableNeo4jRepositories ("com.main.fastserver.repository")
+@EnableNeo4jRepositories ("com.main.fastserver.Repository")
 @EnableScheduling
 @EnableSwagger2
 public class FastServerApplication {
