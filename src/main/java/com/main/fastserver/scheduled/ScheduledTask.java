@@ -1,6 +1,6 @@
-package com.main.fastserver.Scheduled;
+package com.main.fastserver.scheduled;
 
-import com.main.fastserver.Entity.Skill;
+import com.main.fastserver.entity.Skill;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

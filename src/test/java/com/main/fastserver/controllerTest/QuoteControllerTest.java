@@ -1,9 +1,9 @@
-package com.main.fastserver.ControllerTest;
+package com.main.fastserver.controllerTest;
 
-import com.main.fastserver.Controller.QuoteController;
-import com.main.fastserver.Entity.Quote;
-import com.main.fastserver.Entity.Skill;
-import com.main.fastserver.Service.QuoteService;
+import com.main.fastserver.controller.QuoteController;
+import com.main.fastserver.entity.Quote;
+import com.main.fastserver.entity.Skill;
+import com.main.fastserver.service.QuoteService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

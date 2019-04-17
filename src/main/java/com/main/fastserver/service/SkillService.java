@@ -1,11 +1,11 @@
-package com.main.fastserver.Service;
+package com.main.fastserver.service;
 
-import com.main.fastserver.Repository.SkillRepository;
+import com.main.fastserver.repository.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * Service for skill
+ * service for skill
  */
 @Service
 public class SkillService {

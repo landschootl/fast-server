@@ -1,4 +1,4 @@
-package com.main.fastserver.Entity;
+package com.main.fastserver.entity;
 
 import lombok.*;
 
@@ -7,7 +7,7 @@ import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 
 /**
- * Entity skill present in the database
+ * entity skill present in the database
  */
 @NodeEntity
 @Builder

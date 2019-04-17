@@ -1,7 +1,7 @@
-package com.main.fastserver.Controller;
+package com.main.fastserver.controller;
 
-import com.main.fastserver.Entity.SubDomain;
-import com.main.fastserver.Service.SubDomainService;
+import com.main.fastserver.entity.SubDomain;
+import com.main.fastserver.service.SubDomainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * Controller for subdomain
+ * controller for subdomain
  */
 @RestController
 @RequestMapping("/api")

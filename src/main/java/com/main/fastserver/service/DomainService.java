@@ -1,18 +1,16 @@
-package com.main.fastserver.Service;
+package com.main.fastserver.service;
 
-import com.main.fastserver.Entity.Domain;
-import com.main.fastserver.Repository.DomainRepository;
+import com.main.fastserver.entity.Domain;
+import com.main.fastserver.repository.DomainRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
- * Service for Domain
+ * service for Domain
  */
 
 @Service

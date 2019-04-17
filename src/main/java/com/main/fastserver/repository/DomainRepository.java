@@ -1,6 +1,6 @@
-package com.main.fastserver.Repository;
+package com.main.fastserver.repository;
 
-import com.main.fastserver.Entity.Domain;
+import com.main.fastserver.entity.Domain;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 /**
- * Repository for domain
+ * repository for domain
  */
 @RepositoryRestResource(collectionResourceRel = "domains", path = "domains")
 public interface DomainRepository extends Neo4jRepository<Domain, Long> {

@@ -1,7 +1,7 @@
-package com.main.fastserver.Service;
+package com.main.fastserver.service;
 
-import com.main.fastserver.Entity.Quote;
-import com.main.fastserver.Repository.QuoteRepository;
+import com.main.fastserver.entity.Quote;
+import com.main.fastserver.repository.QuoteRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Service for quote
+ * service for quote
  */
 @Service
 public class QuoteService {

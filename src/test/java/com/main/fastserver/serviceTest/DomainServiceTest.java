@@ -1,9 +1,9 @@
-package com.main.fastserver.ServiceTest;
+package com.main.fastserver.serviceTest;
 
 
-import com.main.fastserver.Entity.Domain;
-import com.main.fastserver.Repository.DomainRepository;
-import com.main.fastserver.Service.DomainService;
+import com.main.fastserver.entity.Domain;
+import com.main.fastserver.repository.DomainRepository;
+import com.main.fastserver.service.DomainService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,7 +12,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 

@@ -1,6 +1,6 @@
-package com.main.fastserver.Scheduled;
+package com.main.fastserver.scheduled;
 
-import com.main.fastserver.Entity.Skill;
+import com.main.fastserver.entity.Skill;
 import org.springframework.stereotype.Service;
 
 import java.io.File;

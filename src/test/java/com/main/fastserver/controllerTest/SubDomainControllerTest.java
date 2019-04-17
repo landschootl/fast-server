@@ -1,8 +1,8 @@
-package com.main.fastserver.ControllerTest;
+package com.main.fastserver.controllerTest;
 
-import com.main.fastserver.Controller.SubDomainController;
-import com.main.fastserver.Entity.SubDomain;
-import com.main.fastserver.Service.SubDomainService;
+import com.main.fastserver.controller.SubDomainController;
+import com.main.fastserver.entity.SubDomain;
+import com.main.fastserver.service.SubDomainService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

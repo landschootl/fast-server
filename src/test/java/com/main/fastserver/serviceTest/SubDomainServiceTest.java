@@ -1,8 +1,8 @@
-package com.main.fastserver.ServiceTest;
+package com.main.fastserver.serviceTest;
 
-import com.main.fastserver.Entity.SubDomain;
-import com.main.fastserver.Repository.SubDomainRepository;
-import com.main.fastserver.Service.SubDomainService;
+import com.main.fastserver.entity.SubDomain;
+import com.main.fastserver.repository.SubDomainRepository;
+import com.main.fastserver.service.SubDomainService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,8 +1,8 @@
-package com.main.fastserver.Controller;
+package com.main.fastserver.controller;
 
-import com.main.fastserver.Entity.Quote;
-import com.main.fastserver.Service.DomainService;
-import com.main.fastserver.Service.QuoteService;
+import com.main.fastserver.entity.Quote;
+import com.main.fastserver.service.DomainService;
+import com.main.fastserver.service.QuoteService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 /**
- * Controller for Quote
+ * controller for Quote
  */
 @RestController
 @RequestMapping("/api/")

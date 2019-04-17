@@ -1,13 +1,13 @@
-package com.main.fastserver.Repository;
+package com.main.fastserver.repository;
 
-import com.main.fastserver.Entity.Skill;
+import com.main.fastserver.entity.Skill;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 /**
- * Repository for skill
+ * repository for skill
  */
 @RepositoryRestResource(collectionResourceRel = "skills", path = "skills")
 public interface SkillRepository extends Neo4jRepository<Skill, Long> {

@@ -1,8 +1,8 @@
-package com.main.fastserver.ServiceTest;
+package com.main.fastserver.serviceTest;
 
-import com.main.fastserver.Entity.Quote;
-import com.main.fastserver.Repository.QuoteRepository;
-import com.main.fastserver.Service.QuoteService;
+import com.main.fastserver.entity.Quote;
+import com.main.fastserver.repository.QuoteRepository;
+import com.main.fastserver.service.QuoteService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

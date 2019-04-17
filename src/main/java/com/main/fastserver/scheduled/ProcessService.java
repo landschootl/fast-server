@@ -1,11 +1,11 @@
-package com.main.fastserver.Scheduled;
+package com.main.fastserver.scheduled;
 
-import com.main.fastserver.Entity.Domain;
-import com.main.fastserver.Entity.Skill;
-import com.main.fastserver.Entity.SubDomain;
-import com.main.fastserver.Service.DomainService;
-import com.main.fastserver.Service.SkillService;
-import com.main.fastserver.Service.SubDomainService;
+import com.main.fastserver.entity.Domain;
+import com.main.fastserver.entity.Skill;
+import com.main.fastserver.entity.SubDomain;
+import com.main.fastserver.service.DomainService;
+import com.main.fastserver.service.SkillService;
+import com.main.fastserver.service.SubDomainService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

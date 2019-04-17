@@ -1,6 +1,6 @@
-package com.main.fastserver.Repository;
+package com.main.fastserver.repository;
 
-import com.main.fastserver.Entity.SubDomain;
+import com.main.fastserver.entity.SubDomain;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
@@ -8,7 +8,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import java.util.List;
 
 /**
- * Repository for subdomain
+ * repository for subdomain
  */
 @RepositoryRestResource(collectionResourceRel = "subdomains", path = "subdomains")
 public interface SubDomainRepository extends Neo4jRepository<SubDomain, Long> {

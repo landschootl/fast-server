@@ -1,4 +1,4 @@
-package com.main.fastserver.Entity;
+package com.main.fastserver.entity;
 
 import lombok.*;
 import org.neo4j.ogm.annotation.GeneratedValue;
@@ -9,7 +9,7 @@ import org.neo4j.ogm.annotation.Relationship;
 import java.util.List;
 
 /**
- * Entity quote
+ * entity quote
  */
 @NodeEntity
 @Builder

@@ -1,7 +1,7 @@
-package com.main.fastserver.Service;
+package com.main.fastserver.service;
 
-import com.main.fastserver.Entity.SubDomain;
-import com.main.fastserver.Repository.SubDomainRepository;
+import com.main.fastserver.entity.SubDomain;
+import com.main.fastserver.repository.SubDomainRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * Service for subdomain
+ * service for subdomain
  */
 @Service
 public class SubDomainService {
