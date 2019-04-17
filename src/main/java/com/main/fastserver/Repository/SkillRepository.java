@@ -13,6 +13,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 public interface SkillRepository extends Neo4jRepository<Skill, Long> {
 
     @Query("MATCH (skill) WHERE ID(skill) = {skillid} MATCH (subDomain:SubDomain)<-[r:SKILL_IN]-(skill) DELETE r")
-    void delete(@Param("skillid") Long skillId);
+    void deleteSkill(@Param("skillid") Long skillId);
 
 }

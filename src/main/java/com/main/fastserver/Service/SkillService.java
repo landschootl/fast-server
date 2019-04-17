@@ -14,6 +14,6 @@ public class SkillService {
     SkillRepository skillRepository;
 
     public void deleteSkill(Long skill) {
-        skillRepository.delete(skill);
+        skillRepository.deleteSkill(skill);
     }
 }
