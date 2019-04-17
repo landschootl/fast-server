@@ -15,20 +15,24 @@ import java.util.Map;
 public class ScanService {
 
     public Map<String, Map<String, Map<String, Skill>>> mapDomain(String path) throws Exception {
-        File fileDomain = new File(path);
-        if(!fileDomain.isDirectory()) {throw new Exception("path is not directory");}
+        File resourcesFile = new File(path);
+        if(!resourcesFile.isDirectory()) {throw new Exception("path is not directory");}
         Map<String, Map<String, Map<String, Skill>>> mapDomains = new HashMap<>();
-        File[] domainsFile = fileDomain.listFiles();
+        File[] domainsFile = resourcesFile.listFiles();
         for(File domainFile : domainsFile) {
             Map<String, Map<String, Skill>> mapSubDomains = new HashMap<>();
             File[] subDomainsFile = domainFile.listFiles();
-            for(File subDomainFile : subDomainsFile) {
-                Map<String, Skill> mapSkill = new HashMap<>();
-                File[] skillsFile = subDomainFile.listFiles();
-                for(File skillFile : skillsFile) {
-                    mapSkill.put(skillFile.getName(), Skill.builder().title(skillFile.getName()).description("description").build());
+            if(subDomainsFile != null) {
+                for (File subDomainFile : subDomainsFile) {
+                    Map<String, Skill> mapSkill = new HashMap<>();
+                    File[] skillsFile = subDomainFile.listFiles();
+                    if(skillsFile != null) {
+                        for (File skillFile : skillsFile) {
+                            mapSkill.put(skillFile.getName(), Skill.builder().title(skillFile.getName()).description("description").build());
+                        }
+                    }
+                    mapSubDomains.put(subDomainFile.getName(), mapSkill);
                 }
-                mapSubDomains.put(subDomainFile.getName(), mapSkill);
             }
             mapDomains.put(domainFile.getName(), mapSubDomains);
         }

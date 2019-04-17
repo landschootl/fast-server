@@ -179,7 +179,7 @@ public class ProcessService {
             if(skillsInDataBase != null) {
                 for (Skill skillDataBase : skillsInDataBase) {
                     if (!subDomainMap.get(subDomainDataBase.getTitle()).containsKey(skillDataBase.getTitle())) {
-                        skillService.delete(skillDataBase.getId());
+                        skillService.deleteSkill(skillDataBase.getId());
                         log.info(skillDataBase.getTitle() + " IS DELETED");
                     }
                 }
