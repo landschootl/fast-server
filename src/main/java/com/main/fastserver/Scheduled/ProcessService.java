@@ -96,25 +96,25 @@ public class ProcessService {
      * @param domainInDatabase
      */
     public void updateSubDomains(Map<String, Map<String, Skill>> subDomainsMap, Domain domainInDatabase) {
-        List<SubDomain> subDomains = domainInDatabase.getSubdomains();
+        List<SubDomain> subDomainsInDatabase = domainInDatabase.getSubdomains();
         for(String titleSubDomain : subDomainsMap.keySet()) {
             boolean isPresentSubDomain = false;
-            if(subDomains != null) {
-                for (SubDomain subDomain : subDomains) {
-                    if (titleSubDomain.equals(subDomain.getTitle())) {
+            if(subDomainsInDatabase != null) {
+                for (SubDomain subDomainInDatabase : subDomainsInDatabase) {
+                    if (titleSubDomain.equals(subDomainInDatabase.getTitle())) {
                         isPresentSubDomain = true;
-                        this.updateSkills(subDomainsMap.get(titleSubDomain), subDomain, domainInDatabase);
+                        this.updateSkills(subDomainsMap.get(titleSubDomain), subDomainInDatabase, domainInDatabase);
                     }
                 }
             }
             if(!isPresentSubDomain) {
-                if (subDomains == null) {
-                    subDomains = new ArrayList<>();
-                    subDomains.add(SubDomain.builder().title(titleSubDomain).skills(null).build());
+                if (subDomainsInDatabase == null) {
+                    subDomainsInDatabase = new ArrayList<>();
+                    subDomainsInDatabase.add(SubDomain.builder().title(titleSubDomain).skills(null).build());
                 } else {
-                    subDomains.add(SubDomain.builder().title(titleSubDomain).skills(null).build());
+                    subDomainsInDatabase.add(SubDomain.builder().title(titleSubDomain).skills(null).build());
                 }
-                domainInDatabase.setSubdomains(subDomains);
+                domainInDatabase.setSubdomains(subDomainsInDatabase);
                 domainService.updateDomain(domainInDatabase);
             }
         }
@@ -127,22 +127,22 @@ public class ProcessService {
      * @param domainInDatabase
      */
     public void updateSkills(Map<String, Skill> skillsMap, SubDomain subDomainInDatabase, Domain domainInDatabase) {
-        List<Skill> skills = subDomainInDatabase.getSkills();
+        List<Skill> skillsInDatabase = subDomainInDatabase.getSkills();
         for(String titleSkill : skillsMap.keySet()) {
             boolean isPresentSkill = false;
-            if(skills != null) {
-                for(Skill skill : skills) {
-                    if(titleSkill.equals(skill.getTitle())) {
+            if(skillsInDatabase != null) {
+                for(Skill skillInDatabase : skillsInDatabase) {
+                    if(titleSkill.equals(skillInDatabase.getTitle())) {
                         isPresentSkill = true;
                     }
                 }
             }
             if(!isPresentSkill) {
-                if(skills == null) {
-                    skills = new ArrayList<>();
+                if(skillsInDatabase == null) {
+                    skillsInDatabase = new ArrayList<>();
                 }
-                skills.add(Skill.builder().title(titleSkill).description("...").build());
-                subDomainInDatabase.setSkills(skills);
+                skillsInDatabase.add(Skill.builder().title(titleSkill).description("...").build());
+                subDomainInDatabase.setSkills(skillsInDatabase);
                 domainService.updateDomain(domainInDatabase);
             }
         }
@@ -150,37 +150,37 @@ public class ProcessService {
 
     /**
      * deletes the domain and its subdomains if the domain is present in the database but not present in /resources/domains
-     * @param domainDataBase
+     * @param domainInDatabase
      */
-    public void deleteDomainWithSubDomains(Domain domainDataBase) {
-        List<SubDomain> subDomains = domainDataBase.getSubdomains();
-        if(subDomains != null) {
-            for (SubDomain subDomain : subDomains) {
-                subDomainService.deleteSubDomain(subDomain);
-                log.info(subDomain.getTitle() + " IS DELETED");
+    public void deleteDomainWithSubDomains(Domain domainInDatabase) {
+        List<SubDomain> subDomainsInDatabase = domainInDatabase.getSubdomains();
+        if(subDomainsInDatabase != null) {
+            for (SubDomain subDomainInDatabase : subDomainsInDatabase) {
+                subDomainService.deleteSubDomain(subDomainInDatabase);
+                log.info(subDomainInDatabase.getTitle() + " IS DELETED");
             }
         }
-        domainService.deleteDomain(domainDataBase);
-        log.info(domainDataBase.getTitle() + " IS DELETED");
+        domainService.deleteDomain(domainInDatabase);
+        log.info(domainInDatabase.getTitle() + " IS DELETED");
     }
 
     /**
      * deletes the subdomain and its skills if the domain is ok and its subdomains are
      * present in the database but not present in /resources/domains
      * @param subDomainMap
-     * @param subDomainDataBase
+     * @param subDomainInDatabase
      */
-    public void deleteSubDomainsWithSkills(Map<String, Map<String, Skill>> subDomainMap, SubDomain subDomainDataBase) {
-        if (!subDomainMap.containsKey(subDomainDataBase.getTitle())) {
-            subDomainService.deleteSubDomain(subDomainDataBase);
-            log.info(subDomainDataBase.getTitle() + " IS DELETED");
+    public void deleteSubDomainsWithSkills(Map<String, Map<String, Skill>> subDomainMap, SubDomain subDomainInDatabase) {
+        if (!subDomainMap.containsKey(subDomainInDatabase.getTitle())) {
+            subDomainService.deleteSubDomain(subDomainInDatabase);
+            log.info(subDomainInDatabase.getTitle() + " IS DELETED");
         } else {
-            List<Skill> skillsInDataBase = subDomainDataBase.getSkills();
+            List<Skill> skillsInDataBase = subDomainInDatabase.getSkills();
             if(skillsInDataBase != null) {
-                for (Skill skillDataBase : skillsInDataBase) {
-                    if (!subDomainMap.get(subDomainDataBase.getTitle()).containsKey(skillDataBase.getTitle())) {
-                        skillService.deleteSkill(skillDataBase.getId());
-                        log.info(skillDataBase.getTitle() + " IS DELETED");
+                for (Skill skillInDatabase : skillsInDataBase) {
+                    if (!subDomainMap.get(subDomainInDatabase.getTitle()).containsKey(skillInDatabase.getTitle())) {
+                        skillService.deleteSkill(skillInDatabase.getId());
+                        log.info(skillInDatabase.getTitle() + " IS DELETED");
                     }
                 }
             }
