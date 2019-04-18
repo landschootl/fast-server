@@ -13,6 +13,10 @@ public class SkillService {
     @Autowired
     SkillRepository skillRepository;
 
+    /**
+     * delete relation ship between subdomain and skill
+     * @param skill to be deleted relation ship
+     */
     public void deleteSkill(Long skill) {
         skillRepository.deleteSkill(skill);
     }

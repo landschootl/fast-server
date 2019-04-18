@@ -11,5 +11,11 @@ import java.util.Optional;
  */
 @RepositoryRestResource(collectionResourceRel = "quotes", path = "quotes")
 public interface QuoteRepository extends Neo4jRepository<Quote, Long> {
+
+    /**
+     * define query for search quote with id equal to the parameter
+     * @param id of the quote sought
+     * @return
+     */
     Optional<Quote> findById(Long id);
 }

@@ -14,6 +14,11 @@ import java.util.Map;
 @Service
 public class ScanService {
 
+    /**
+     * scan the folder /resources/domains and return a domain map with a subdomain map and a skill map
+     * @param path
+     * @return
+     */
     public Map<String, Map<String, Map<String, Skill>>> mapDomain(String path) throws Exception {
         File resourcesFile = new File(path);
         if(!resourcesFile.isDirectory()) {throw new Exception("path is not directory");}
