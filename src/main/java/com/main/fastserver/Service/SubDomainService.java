@@ -28,4 +28,12 @@ public class SubDomainService {
         return subDomainRepository.collectAll();
     }
 
+    /**
+     * Delete subdomain in database
+     * @param subDomain to be deleted
+     */
+    public void deleteSubDomain(SubDomain subDomain){
+        subDomainRepository.delete(subDomain);
+    }
+
 }

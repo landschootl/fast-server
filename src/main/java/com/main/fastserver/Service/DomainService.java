@@ -38,4 +38,31 @@ public class DomainService {
     public List<Domain> findAll() {
         return domainRepository.collectAll();
     }
+
+    /**
+     * Create domain in database
+     * @param domain to be created
+     * @return domain create with id
+     */
+    public Domain createDomain(Domain domain) {
+        domain.setId(null);
+        return domainRepository.save(domain);
+    }
+
+    /**
+     * Delete domain in database
+     * @param domain to be deleted
+     */
+    public void deleteDomain(Domain domain) {
+        domainRepository.delete(domain);
+    }
+
+    /**
+     * Update domain in database
+     * @param domain to be updated
+     * @return domain update
+     */
+    public Domain updateDomain(Domain domain) {
+        return domainRepository.save(domain);
+    }
 }
