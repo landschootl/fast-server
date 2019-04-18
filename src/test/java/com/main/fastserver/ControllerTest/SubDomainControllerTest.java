@@ -1,6 +1,9 @@
 package com.main.fastserver.ControllerTest;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.main.fastserver.Controller.SubDomainController;
+import com.main.fastserver.Entity.Domain;
 import com.main.fastserver.Entity.SubDomain;
 import com.main.fastserver.Service.SubDomainService;
 import org.junit.Before;
@@ -34,8 +37,11 @@ public class SubDomainControllerTest {
 
     private MockMvc mvc;
 
-    private final SubDomain SUBDOMAIN_1 = SubDomain.builder().title("Cloud").skills(new ArrayList<>()).build();
-    private final SubDomain SUBDOMAIN_2 = SubDomain.builder().title("Front").skills(new ArrayList<>()).build();
+    private final GsonBuilder builder = new GsonBuilder();
+    private final Gson gson = builder.create();
+
+    private final SubDomain SUBDOMAIN_1 = SubDomain.builder().id(1L).title("Cloud").skills(new ArrayList<>()).build();
+    private final SubDomain SUBDOMAIN_2 = SubDomain.builder().id(2L).title("Front").skills(new ArrayList<>()).build();
 
     @Before
     public void init() {
@@ -49,12 +55,7 @@ public class SubDomainControllerTest {
         RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/api/subdomains")
                 .accept(MediaType.APPLICATION_JSON);
         MvcResult result = mvc.perform(requestBuilder).andReturn();
-        String expected = " [{\"id\": null," +
-                "\"title\":\"Cloud\"," +
-                "\"skills\":[]}," +
-                "{\"id\":null," +
-                "\"title\":\"Front\"," +
-                "\"skills\":[]}]";
+        String expected = gson.toJson(new SubDomain[] {SUBDOMAIN_1, SUBDOMAIN_2});
         JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), true);
     }
 
