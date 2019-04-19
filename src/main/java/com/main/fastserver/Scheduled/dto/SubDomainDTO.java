@@ -1,4 +1,4 @@
-package com.main.fastserver.dto;
+package com.main.fastserver.Scheduled.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
