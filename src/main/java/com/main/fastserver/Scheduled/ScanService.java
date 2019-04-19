@@ -1,11 +1,20 @@
 package com.main.fastserver.Scheduled;
 
+
+import com.google.common.io.Files;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import com.main.fastserver.Entity.Skill;
+import com.main.fastserver.Scheduled.dto.DomainDTO;
+import com.main.fastserver.Scheduled.dto.SkillDTO;
+import com.main.fastserver.Scheduled.dto.SubDomainDTO;
+import org.apache.commons.io.Charsets;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Service that will be called every x time by ScheduledTask
@@ -14,33 +23,46 @@ import java.util.Map;
 @Service
 public class ScanService {
 
+    private Gson gson = new GsonBuilder().create();
+
     /**
      * scan the folder /resources/domains and return a domain map with a subdomain map and a skill map
      * @param path
      * @return
      */
-    public Map<String, Map<String, Map<String, Skill>>> mapDomain(String path) throws Exception {
-        File resourcesFile = new File(path);
-        if(!resourcesFile.isDirectory()) {throw new Exception("path is not directory");}
-        Map<String, Map<String, Map<String, Skill>>> mapDomains = new HashMap<>();
-        File[] domainsFile = resourcesFile.listFiles();
+    public List<DomainDTO> getDomainsFile(String path) throws Exception {
+        File resources = new File(path);
+        List<DomainDTO> domains = new ArrayList<>();
+        File[] domainsFile = resources.listFiles();
         for(File domainFile : domainsFile) {
-            Map<String, Map<String, Skill>> mapSubDomains = new HashMap<>();
+            DomainDTO domain = DomainDTO.builder().title(domainFile.getName()).build();
+            List<SubDomainDTO> subDomains = new ArrayList<>();
             File[] subDomainsFile = domainFile.listFiles();
-            if(subDomainsFile != null) {
-                for (File subDomainFile : subDomainsFile) {
-                    Map<String, Skill> mapSkill = new HashMap<>();
+            for(File subDomainFile : subDomainsFile) {
+                if(subDomainFile.isDirectory()) {
+                    SubDomainDTO subDomain = SubDomainDTO.builder().title(subDomainFile.getName()).build();
+                    List<SkillDTO> skills = new ArrayList<>();
                     File[] skillsFile = subDomainFile.listFiles();
-                    if(skillsFile != null) {
-                        for (File skillFile : skillsFile) {
-                            mapSkill.put(skillFile.getName(), Skill.builder().title(skillFile.getName()).description("description").build());
-                        }
+                    for(File skillFile : skillsFile) {
+                        JsonObject jsonSkill = gson.fromJson(Files.toString(skillFile, Charsets.UTF_8), JsonObject.class);
+                        SkillDTO skill = SkillDTO.builder()
+                                .title(skillFile.getName())
+                                // utiliser json quand il y aura title dans le fichier
+                               // .title(jsonSkill.get("title").getAsString())
+                                .description(jsonSkill.get("description").getAsString())
+                                .build();
+                        skills.add(skill);
                     }
-                    mapSubDomains.put(subDomainFile.getName(), mapSkill);
+                    subDomain.setSkills(skills);
+                    subDomains.add(subDomain);
+                }else{
+                    JsonObject jsonDomain = gson.fromJson(Files.toString(subDomainFile, Charsets.UTF_8), JsonObject.class);
+                    domain.setIcon(jsonDomain.get("icon").getAsString());
                 }
             }
-            mapDomains.put(domainFile.getName(), mapSubDomains);
+            domain.setSubDomains(subDomains);
+            domains.add(domain);
         }
-        return mapDomains;
+        return domains;
     }
 }

@@ -104,7 +104,6 @@ public class QuoteControllerTest {
 
     @Test
     public void shouldNotUpdateQuoteNotFound() throws Exception{
-        when(quoteService.findById(1L)).thenReturn(Optional.of(QUOTE_1));
         RequestBuilder requestBuilder = MockMvcRequestBuilders.put("/api/quotes/2")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(gson.toJson(QUOTE_UPDATE))
@@ -135,7 +134,6 @@ public class QuoteControllerTest {
 
     @Test
     public void shouldNotValidateQuoteNotFound() throws Exception{
-        when(quoteService.findById(1L)).thenReturn(Optional.of(QUOTE_1));
         String bodyContent = gson.toJson(QUOTE_1);
         RequestBuilder requestBuilder = MockMvcRequestBuilders.put("/api/quotes/2/validate")
                 .contentType(MediaType.APPLICATION_JSON)

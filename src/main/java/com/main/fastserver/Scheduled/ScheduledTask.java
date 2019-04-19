@@ -1,12 +1,14 @@
 package com.main.fastserver.Scheduled;
 
 import com.main.fastserver.Entity.Skill;
+import com.main.fastserver.Scheduled.dto.DomainDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,7 +30,7 @@ public class ScheduledTask {
      */
     @Scheduled(fixedRate = 10000)
     public void update() throws Exception {
-        Map<String, Map<String, Map<String, Skill>>> domainsMap = scanService.mapDomain("src/main/resources/domains");
-        processService.processMain(domainsMap);
+        List<DomainDTO> domainsList = scanService.getDomainsFile("src/main/resources/domains");
+        processService.process(domainsList);
     }
 }
