@@ -40,8 +40,7 @@ public class QuoteControllerTest {
 
     private MockMvc mvc;
 
-    private final GsonBuilder builder = new GsonBuilder();
-    private final Gson gson = builder.create();
+    private Gson gson = new GsonBuilder().create();
 
     private final Skill SKILL_1 = Skill.builder().id(3L).title("skill").description("description").build();
 

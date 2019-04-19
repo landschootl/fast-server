@@ -37,8 +37,7 @@ public class SubDomainControllerTest {
 
     private MockMvc mvc;
 
-    private final GsonBuilder builder = new GsonBuilder();
-    private final Gson gson = builder.create();
+    private Gson gson = new GsonBuilder().create();
 
     private final SubDomain SUBDOMAIN_1 = SubDomain.builder().id(1L).title("Cloud").skills(new ArrayList<>()).build();
     private final SubDomain SUBDOMAIN_2 = SubDomain.builder().id(2L).title("Front").skills(new ArrayList<>()).build();

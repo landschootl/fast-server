@@ -13,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
@@ -36,8 +37,7 @@ public class DomainControllerTest {
 
     private MockMvc mvc;
 
-    private final GsonBuilder builder = new GsonBuilder();
-    private final Gson gson = builder.create();
+    private Gson gson = new GsonBuilder().create();
 
     private final Domain DOMAIN_1 = Domain.builder().id(1L).title("ECOSYSTEM").icon("icon").subdomains(new ArrayList<>()).build();
     private final Domain DOMAIN_2 = Domain.builder().id(2L).title("METHOD").icon("icon").subdomains(new ArrayList<>()).build();
