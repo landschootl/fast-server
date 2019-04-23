@@ -1,14 +1,9 @@
 package com.main.fastserver.Scheduled.dto;
 
-import com.main.fastserver.Entity.Domain;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.modelmapper.ModelMapper;
-import org.springframework.context.annotation.Bean;
+import lombok.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @Builder
 @AllArgsConstructor
@@ -19,5 +14,13 @@ public class DomainDTO {
     private String title;
     private String icon;
     private List<SubDomainDTO> subDomains;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DomainDTO domainDTO = (DomainDTO) o;
+        return title.equals(domainDTO.title);
+    }
 
 }
