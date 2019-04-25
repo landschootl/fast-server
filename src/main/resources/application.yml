@@ -1,6 +1,5 @@
 spring:
-    data:
-        neo4j:
-            password: davidson
-            uri: bolt://localhost
-            username: neo4j
+    application:
+        name: fast-server
+    profiles:
+        active: dev
