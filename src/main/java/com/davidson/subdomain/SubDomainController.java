@@ -25,7 +25,7 @@ public class SubDomainController {
      * @return subdomain list and display response in format JSON
      */
     @GetMapping("/subdomains")
-    @ApiOperation("get all subdomain present in the database")
+    @ApiOperation("allow you to get all subdomain present in the database")
     public List<SubDomain> collectAll() {
         return subDomainService.findAll();
     }

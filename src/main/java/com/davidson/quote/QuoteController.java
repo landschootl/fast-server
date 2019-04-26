@@ -30,18 +30,18 @@ public class QuoteController {
      * @return quote list and display response in format JSON
      */
     @GetMapping("/quotes")
-    @ApiOperation("get all quote present in the database")
+    @ApiOperation("Allows you to get all quote present in the database")
     public ResponseEntity collectAll() {
         return ResponseEntity.ok(quoteService.findAll());
     }
 
     /**
-     * End-point for create a quote
+     * End-point for create a quote in the database
      * @param quote create
      * @return 201 created
      */
     @RequestMapping(value = "/quotes", method = RequestMethod.POST)
-    @ApiOperation("create a quote")
+    @ApiOperation("Allows you to create a quote in the database")
     public ResponseEntity persistQuote(@RequestBody Quote quote) {
         if (quote.getSkills() == null || quote.getSkills().isEmpty()){
             return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).build();
@@ -51,13 +51,13 @@ public class QuoteController {
     }
 
     /**
-     * Update the quote with is id
+     * End-point for update the quote with is id in the database
      * @param id of the quote we want to update
      * @param quote data to be updated
      * @return not found if id parameter is not defined or ok if the quote is present
      */
     @RequestMapping(value = "/quotes/{quoteid}", method = RequestMethod.PUT)
-    @ApiOperation("Update the quote with is id")
+    @ApiOperation("Allow you to update the quote with is id in the database")
     public ResponseEntity updateQuote(@PathVariable("quoteid") Long id, @RequestBody Quote quote) {
         if (quote.getSkills() == null || quote.getSkills().isEmpty()){
             return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).build();
@@ -72,12 +72,12 @@ public class QuoteController {
     }
 
     /**
-     * End-point for validate status send for quote
+     * End-point for validate status send for quote in the database
      * @param id of the quote to be validated
      * @return quote that has the id
      */
     @RequestMapping(value = "/quotes/{quoteid}/validate", method = RequestMethod.PUT)
-    @ApiOperation("Validate status send for quote")
+    @ApiOperation("Allows you to validate status send for quote in the database")
     public ResponseEntity validateQuote(@PathVariable("quoteid") Long id) {
         Optional<Quote> optionalQuote = quoteService.findById(id);
         if(!optionalQuote.isPresent()) {
