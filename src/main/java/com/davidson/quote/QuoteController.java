@@ -1,6 +1,8 @@
 package com.davidson.quote;
 
 import com.davidson.domain.DomainService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,8 @@ import java.util.Optional;
  * Controller for Quote
  */
 @RestController
-@RequestMapping("/api/")
+@RequestMapping("/api/v1")
+@Api(tags = "Quote")
 public class QuoteController {
 
     @Autowired
@@ -27,6 +30,7 @@ public class QuoteController {
      * @return quote list and display response in format JSON
      */
     @GetMapping("/quotes")
+    @ApiOperation("get all quote present in the database")
     public ResponseEntity collectAll() {
         return ResponseEntity.ok(quoteService.findAll());
     }
@@ -37,6 +41,7 @@ public class QuoteController {
      * @return 201 created
      */
     @RequestMapping(value = "/quotes", method = RequestMethod.POST)
+    @ApiOperation("create a quote")
     public ResponseEntity persistQuote(@RequestBody Quote quote) {
         if (quote.getSkills() == null || quote.getSkills().isEmpty()){
             return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).build();
@@ -52,6 +57,7 @@ public class QuoteController {
      * @return not found if id parameter is not defined or ok if the quote is present
      */
     @RequestMapping(value = "/quotes/{quoteid}", method = RequestMethod.PUT)
+    @ApiOperation("Update the quote with is id")
     public ResponseEntity updateQuote(@PathVariable("quoteid") Long id, @RequestBody Quote quote) {
         if (quote.getSkills() == null || quote.getSkills().isEmpty()){
             return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).build();
@@ -71,6 +77,7 @@ public class QuoteController {
      * @return quote that has the id
      */
     @RequestMapping(value = "/quotes/{quoteid}/validate", method = RequestMethod.PUT)
+    @ApiOperation("Validate status send for quote")
     public ResponseEntity validateQuote(@PathVariable("quoteid") Long id) {
         Optional<Quote> optionalQuote = quoteService.findById(id);
         if(!optionalQuote.isPresent()) {
