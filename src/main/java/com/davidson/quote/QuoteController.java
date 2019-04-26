@@ -26,11 +26,11 @@ public class QuoteController {
     private final static Logger LOG = LoggerFactory.getLogger(DomainService.class);
 
     /**
-     * End-point for get all quote present in the database
+     * End-point for get all quote
      * @return quote list and display response in format JSON
      */
     @GetMapping("/quotes")
-    @ApiOperation("Allows you to get all quote present in the database")
+    @ApiOperation("Allows you to get all quote")
     public ResponseEntity collectAll() {
         return ResponseEntity.ok(quoteService.findAll());
     }
@@ -51,13 +51,13 @@ public class QuoteController {
     }
 
     /**
-     * End-point for update the quote with is id in the database
+     * End-point for update the quote with is id
      * @param id of the quote we want to update
      * @param quote data to be updated
      * @return not found if id parameter is not defined or ok if the quote is present
      */
     @RequestMapping(value = "/quotes/{quoteid}", method = RequestMethod.PUT)
-    @ApiOperation("Allow you to update the quote with is id in the database")
+    @ApiOperation("Allow you to update the quote with is id")
     public ResponseEntity updateQuote(@PathVariable("quoteid") Long id, @RequestBody Quote quote) {
         if (quote.getSkills() == null || quote.getSkills().isEmpty()){
             return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).build();
@@ -72,12 +72,12 @@ public class QuoteController {
     }
 
     /**
-     * End-point for validate status send for quote in the database
+     * End-point for validate status send for quote
      * @param id of the quote to be validated
      * @return quote that has the id
      */
     @RequestMapping(value = "/quotes/{quoteid}/validate", method = RequestMethod.PUT)
-    @ApiOperation("Allows you to validate status send for quote in the database")
+    @ApiOperation("Allows you to validate status send for quote")
     public ResponseEntity validateQuote(@PathVariable("quoteid") Long id) {
         Optional<Quote> optionalQuote = quoteService.findById(id);
         if(!optionalQuote.isPresent()) {

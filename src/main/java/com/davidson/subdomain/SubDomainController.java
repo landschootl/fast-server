@@ -21,11 +21,11 @@ public class SubDomainController {
     private SubDomainService subDomainService;
 
     /**
-     * End-point for get all subdomain present in the database
+     * End-point for get all subdomain present
      * @return subdomain list and display response in format JSON
      */
     @GetMapping("/subdomains")
-    @ApiOperation("allow you to get all subdomain present in the database")
+    @ApiOperation("allow you to get all subdomain present")
     public List<SubDomain> collectAll() {
         return subDomainService.findAll();
     }
