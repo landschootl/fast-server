@@ -1,6 +1,6 @@
-package com.main.fastserver.configuration;
+package com.davidson.configuration;
 
-import com.main.fastserver.filter.SimpleCORSFilter;
+import com.davidson.filter.SimpleCORSFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
