@@ -21,12 +21,12 @@ public class DomainController {
     private DomainService domainService;
 
     /**
-     * Allows you to get the domain with the title equal to the parameter or get all the domains if there is no parameter
+     * Allows to recover all domains
      * @param title of the field sought
-     * @return the domain with the title equal tot the parameter ou list domains present in the database
+     * @return the domain with the title equal tot the parameter ou list domains present
      */
     @GetMapping("/domains")
-    @ApiOperation("Allows you to get the domain with the title equal to the parameter or get all the domains if there is no parameter")
+    @ApiOperation("Allows to recover all domains")
     public ResponseEntity findAllOrFindByTitle(@RequestParam(required = false) String title) {
         if(title != null) {
             Domain domain = domainService.findByTitle(title);
