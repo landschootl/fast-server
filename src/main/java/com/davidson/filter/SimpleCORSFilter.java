@@ -1,4 +1,4 @@
-package com.davidson.filter;
+package com.main.fastserver.filter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.IOException;
 
 @Component
@@ -22,14 +23,15 @@ public class SimpleCORSFilter extends GenericFilterBean {
      */
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    //@Value("{URL_FRONT}")
-    //private String allowOrigin;
+    @Value("{URL_FRONT}")
+    private String allowOrigin;
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse resp,
                          FilterChain chain) throws IOException, ServletException {
         HttpServletResponse response = (HttpServletResponse) resp;
-        String allowOrigin = System.getenv("URL_FRONT");
+
+        //String allowOrigin = System.getenv("URL_FRONT");
 
         if(! StringUtils.isEmpty(allowOrigin) ) {
             response.setHeader("Access-Control-Allow-Origin", allowOrigin);
