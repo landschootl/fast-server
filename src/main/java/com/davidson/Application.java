@@ -12,7 +12,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 @EnableNeo4jRepositories ("com.davidson")
 @EnableScheduling
-@EnableSwagger2
 public class Application {
 
 	/**
