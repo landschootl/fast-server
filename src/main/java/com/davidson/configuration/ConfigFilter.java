@@ -1,6 +1,5 @@
 package com.davidson.configuration;
 
-import com.davidson.filter.SimpleCORSFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +11,6 @@ public class ConfigFilter {
 
     @Bean
     public FilterRegistrationBean corsFilterRegistration() {
-
         FilterRegistrationBean registration = new FilterRegistrationBean();
         registration.setFilter(corsFilter());
         registration.addUrlPatterns("/url/*");
