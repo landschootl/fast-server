@@ -18,9 +18,9 @@ public class SimpleCORSFilter extends GenericFilterBean {
                          FilterChain chain) throws IOException, ServletException {
         HttpServletResponse httpResponse = (HttpServletResponse) resp;
         httpResponse.setHeader("Access-Control-Allow-Origin", "*");
-        httpResponse.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+        httpResponse.setHeader("Access-Control-Allow-Methods", "POST, PUT, GET, OPTIONS, DELETE");
         httpResponse.setHeader("Access-Control-Max-Age", "3600");
-        httpResponse.setHeader("Access-Control-Allow-Headers", "x-requested-with");
+        httpResponse.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type");
         chain.doFilter(req, resp);
     }
 }
