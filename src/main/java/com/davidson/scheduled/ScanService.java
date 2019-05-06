@@ -1,6 +1,11 @@
 package com.davidson.scheduled;
 
 import com.davidson.skill.Skill;
+import com.google.common.io.Files;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import org.apache.commons.io.Charsets;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -13,6 +18,8 @@ import java.util.Map;
  */
 @Service
 public class ScanService {
+
+    private Gson gson = new GsonBuilder().create();
 
     /**
      * scan the folder /resources/domains and return a domain map with a subdomain map and a skill map
@@ -33,7 +40,12 @@ public class ScanService {
                     File[] skillsFile = subDomainFile.listFiles();
                     if(skillsFile != null) {
                         for (File skillFile : skillsFile) {
-                            mapSkill.put(skillFile.getName(), Skill.builder().title(skillFile.getName()).description("description").build());
+                            JsonObject jsonSkill = gson.fromJson(Files.toString(skillFile, Charsets.UTF_8), JsonObject.class);
+                            Skill skill = Skill.builder()
+                                    .title(jsonSkill.get("title").getAsString())
+                                    .description(jsonSkill.get("description").getAsString())
+                                    .build();
+                            mapSkill.put(jsonSkill.get("title").getAsString(), skill);
                         }
                     }
                     mapSubDomains.put(subDomainFile.getName(), mapSkill);
